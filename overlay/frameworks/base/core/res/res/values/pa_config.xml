@@ -29,13 +29,10 @@
             32 - Camera
          For example, a device with Home, Back and Menu keys would set this
          config to 7. -->
-    <integer name="config_deviceHardwareKeys">7</integer>
+    <integer name="config_deviceHardwareKeys">71</integer>
 
     <!-- Internal default to navigation bar value -->
     <bool name="config_defaultToNavigationBar">false</bool>
-
-    <!-- Gestures' key codes. If the gesture is not supported set it to 0. -->
-    <integer name="config_doubleTapKeyCode">143</integer>
 
     <!-- Default settings for gestures
              0 - Disabled
@@ -48,9 +45,10 @@
              7 - Open camera
              8 - Open dialer -->
     <integer name="config_doubleTapDefault">1</integer>
-
-    <!-- Whether to intercept inputs on screen off -->
-    <bool name="config_enableKeyHandler">true</bool>
+    
+    <!-- Default button brightness setting.
+        Must be in the range specified by minimum and maximum. -->
+    <integer name="config_buttonBrightnessSettingDefault">0</integer>
 
     <!-- Whether notify fingerprint client of successful cancelled authentication -->
     <bool name="config_notifyClientOnFingerprintCancelSuccess">true</bool>
