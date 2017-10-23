@@ -18,10 +18,4 @@
     <bool name="show_cmas_settings">false</bool>
     <!-- Whether to enable channel 50 settings (Brazil) -->
     <bool name="show_brazil_settings">false</bool>
-    <!-- Whether to enable channel 50 and 60 settings (India) -->
-    <bool name="show_india_settings">false</bool>
-    <!-- CellBroadcast channel 60 enabled or not,default value is true -->
-    <bool name="def_channel_60_enabled">false</bool>
-    <!--To stop alert after the specified duration -->
-    <bool name="config_regional_stop_alert_on_duration">false</bool>
 </resources>
