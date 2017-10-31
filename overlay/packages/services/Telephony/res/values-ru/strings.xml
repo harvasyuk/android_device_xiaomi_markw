@@ -16,7 +16,6 @@
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-
     <string name="preferred_network_mode_wcdma_perf_summary" msgid="8521677230113533809">"Предпочтительная сеть: 3G"</string>
     <string name="preferred_network_mode_gsm_only_summary" msgid="3352445413437453511">"Предпочтительная сеть: только 2G"</string>
     <string name="preferred_network_mode_wcdma_only_summary" msgid="2836897236221063413">"Предпочтительная сеть: только 3G"</string>
@@ -34,19 +33,4 @@
     <string name="preferred_network_mode_lte_gsm_umts_summary" msgid="633315028976225026">"Предпочтительный режим: LTE/2G/UMTS"</string>
     <string name="preferred_network_mode_lte_cdma_summary" msgid="3722647806454528426">"Предпочтительная сеть: LTE или CDMA"</string>
     <string name="preferred_network_mode_tdscdma_summary" msgid="8021016193718678775">"Рекомендованный сетевой режим: TDSCDMA"</string>
-  <string-array name="preferred_network_mode_choices">
-    <item msgid="7886739962255042385">"LTE/3G"</item>
-    <item msgid="577652050447385699">"LTE"</item>
-    <item msgid="6813597571293773656">"Весь мир"</item>
-    <item msgid="127064712132619032">"2G/3G/LTE"</item>
-    <item msgid="1126767511633425977">"CDMA и LTE/EvDo"</item>
-    <item msgid="6389676313771670660">"CDMA/EvDo/2G/3G"</item>
-    <item msgid="545430093607698090">"Только EvDo"</item>
-    <item msgid="1508557726283094448">"CDMA без EvDo"</item>
-    <item msgid="4341433122263841224">"CDMA/EvDo (авторежим)"</item>
-    <item msgid="5958053792390386668">"2G/3G (авторежим)"</item>
-    <item msgid="7913148405605373434">"Только 3G"</item>
-    <item msgid="1524224863879435516">"Только 2G"</item>
-    <item msgid="3817924849415716259">"2G/3G (предпочтительно)"</item>
-  </string-array>
 </resources>

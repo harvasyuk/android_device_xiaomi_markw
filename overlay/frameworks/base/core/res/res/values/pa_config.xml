@@ -33,18 +33,6 @@
 
     <!-- Internal default to navigation bar value -->
     <bool name="config_defaultToNavigationBar">false</bool>
-
-    <!-- Default settings for gestures
-             0 - Disabled
-             1 - Wake device
-             2 - Toggle flashlight
-             3 - Toggle airplane mode
-             4 - Play/Pause music
-             5 - Next music
-             6 - Previous music
-             7 - Open camera
-             8 - Open dialer -->
-    <integer name="config_doubleTapDefault">1</integer>
     
     <!-- Default button brightness setting.
         Must be in the range specified by minimum and maximum. -->
