@@ -111,7 +111,7 @@
          brightness changes occur in response to an observed change in light level that exceeds the
          hysteresis threshold. -->
     <integer name="config_autoBrightnessBrighteningLightDebounce">4000</integer>
-    <integer name="config_autoBrightnessDarkeningLightDebounce">8000</integer>
+    <integer name="config_autoBrightnessDarkeningLightDebounce">5000</integer>
 
     <!-- Period of time in which to consider light samples in milliseconds. -->
     <integer name="config_autoBrightnessAmbientLightHorizon">5000</integer>
