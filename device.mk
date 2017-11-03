@@ -117,7 +117,8 @@ PRODUCT_COPY_FILES += \
      $(TOPDIR)frameworks/av/services/audiopolicy/config/usb_audio_policy_configuration.xml:/system/etc/usb_audio_policy_configuration.xml
 
 # Camera
-#PRODUCT_PACKAGES += \
+PRODUCT_PACKAGES += \
+    SnapdragonCamera  
 #    Snap
 #    camera.msm8953 \
 #    libmm-qcamera \
