@@ -34,6 +34,17 @@
     <!-- Internal default to navigation bar value -->
     <bool name="config_defaultToNavigationBar">false</bool>
     
+    <!-- Whether device supports double tap to wake -->
+    <integer name="config_doubleTapKeyCode">143</integer>
+    
+    <!-- Automatic brightness enhancements -->
+   <integer name="config_autoBrightnessBrighteningLightFastDebounce">1000</integer>
+   
+    <!-- Extended Boosts for QPerformance -->
+
+    <!-- Duration of the boost in seconds -->
+    <integer name="onbootboost_duration">0</integer>
+    
     <!-- Default button brightness setting.
         Must be in the range specified by minimum and maximum. -->
     <integer name="config_buttonBrightnessSettingDefault">0</integer>
