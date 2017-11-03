@@ -16,9 +16,6 @@
 # Ir
 /dev/lirc[0-9]*					u:object_r:lirc_device:s0
 
-# Bluetooth
-/system/etc/init\.qcom\.bt\.sh                                  u:object_r:bluetooth_loader_exec:s0
-
 # Block devices
 /dev/block/bootdevice/by-name/persist		u:object_r:persist_block_device:s0
 
