@@ -55,8 +55,6 @@
       <value>1804800</value> <!-- 1804 MHz CPU speed -->
       <value>1958400</value> <!-- 1958 MHz CPU speed -->
       <value>2016000</value> <!-- 2016 MHz CPU speed -->
-      <value>2150400</value> <!-- 2150 MHz CPU speed -->
-      <value>2208000</value> <!-- 2208 MHz CPU speed -->
   </array>
   <!-- Current at each CPU speed, as per 'cpu.speeds' -->
   <array name="cpu.active">
@@ -70,8 +68,6 @@
       <value>90.0</value>
       <value>106.6</value>
       <value>113.6</value>
-      <value>120.4</value>
-      <value>123.7</value>
   </array>
   <!-- Total power drawn by the system when CPUs (and the SoC) are in system suspend state. -->
   <item name="cpu.idle">4.9</item>
