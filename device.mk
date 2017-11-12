@@ -117,10 +117,13 @@ PRODUCT_COPY_FILES += \
 
 # Camera
 PRODUCT_PACKAGES += \
-    SnapdragonCamera  
-#    Snap
+    SnapdragonCamera
 #    camera.msm8953 \
 #    libmm-qcamera \
+
+# Email
+PRODUCT_PACKAGES += \
+    Email
     
 # DASH technology
 PRODUCT_PACKAGES += \
@@ -168,7 +171,7 @@ PRODUCT_BOOT_JARS += \
 
 # DRM
 PRODUCT_PACKAGES += \
-    libprotobuf-cpp-full \
+    libprotobuf-cpp-lite \
 
 # Ebtables
 PRODUCT_PACKAGES += \
