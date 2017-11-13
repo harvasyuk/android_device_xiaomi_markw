@@ -62,15 +62,13 @@ qcom.bluetooth.soc=smd
 # Camera
 persist.camera.HAL3.enabled=0
 camera.hal1.packagelist=com.skype.raider,com.google.android.talk,org.cyanogenmod.snap
-media.camera.ts.monotonic=0
-vidc.dec.downscalar_height=1088
-vidc.dec.downscalar_width=1920
 vidc.enc.dcvs.extra-buff-count=2
+media.camera.ts.monotonic=0
 vidc.enc.disable_bframes=1
 vidc.disable.split.mode=1
 vidc.enc.disable.pq=true
-#media.stagefright.legacyencoder=true
-#media.stagefright.less-secure=true
+vidc.dec.downscalar_height=1088
+vidc.dec.downscalar_width=1920
 
 # CNE
 persist.cne.feature=1
