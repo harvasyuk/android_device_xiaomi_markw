@@ -139,15 +139,7 @@ BOARD_HARDWARE_CLASS += \
 BOARD_USES_QCNE := true
 
 # Dex
-ifeq ($(HOST_OS),linux)
-ifneq ($(TARGET_BUILD_VARIANT),userdebug)
-WITH_DEXPREOPT := true
-WITH_DEXPREOPT_DEBUG_INFO := false
-USE_DEX2OAT_DEBUG := false
-DONT_DEXPREOPT_PREBUILTS := true
-WITH_DEXPREOPT_PIC := true
-endif
-endif
+DISABLE_DEXPREOPT := true
 
 # Cpusets
 ENABLE_CPUSETS := true
