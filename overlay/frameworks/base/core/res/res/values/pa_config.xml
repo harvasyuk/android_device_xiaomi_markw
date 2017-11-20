@@ -34,9 +34,6 @@
     <!-- Internal default to navigation bar value -->
     <bool name="config_defaultToNavigationBar">false</bool>
     
-    <!-- Whether device supports double tap to wake -->
-    <integer name="config_doubleTapKeyCode">143</integer>
-    
     <!-- Automatic brightness enhancements -->
    <integer name="config_autoBrightnessBrighteningLightFastDebounce">1000</integer>
    
