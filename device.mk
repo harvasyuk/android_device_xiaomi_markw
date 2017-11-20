@@ -260,7 +260,8 @@ PRODUCT_PACKAGES += \
 # Perf
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/etc/perf-profile0.conf:system/vendor/etc/perf-profile0.conf \
-    $(LOCAL_PATH)/configs/etc/perf-profile1.conf:system/vendor/etc/perf-profile1.conf
+    $(LOCAL_PATH)/configs/etc/perf-profile1.conf:system/vendor/etc/perf-profile1.conf \
+    $(LOCAL_PATH)/configs/etc/perf-profile2.conf:system/vendor/etc/perf-profile2.conf
 
 # Power
 PRODUCT_PACKAGES += \
@@ -282,6 +283,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/sensors/hals.conf:system/etc/sensors/hals.conf \
     $(LOCAL_PATH)/configs/sensors/sensor_def_qcomdev.conf:system/etc/sensors/sensor_def_qcomdev.conf
+
+# Screenwatch
+PRODUCT_PACKAGES += \
+	ScreenWatch
 
 # SPN
 PRODUCT_COPY_FILES += \
