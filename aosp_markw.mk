@@ -16,7 +16,7 @@
 
 $(call inherit-product, device/xiaomi/markw/full_markw.mk)
 
-# Inherit some common LineageOS stuff.
+# Inherit some common AOSP stuff.
 $(call inherit-product, vendor/aosp/common.mk)
 
 # Include Bootanimation configuration
