@@ -19,6 +19,9 @@ $(call inherit-product, device/xiaomi/markw/full_markw.mk)
 # Inherit some common AOSP stuff.
 $(call inherit-product, vendor/aosp/common.mk)
 
+# Get the long list of APNs
+PRODUCT_COPY_FILES := device/xiaomi/markw/apns-full-conf.xml:system/etc/apns-conf.xml
+
 # Include Bootanimation configuration
 TARGET_BOOT_ANIMATION_RES := 1080
 

@@ -29,3 +29,6 @@ PRODUCT_NAME := full_markw
 PRODUCT_BRAND := Xiaomi
 PRODUCT_MODEL := Redmi 4 Prime
 PRODUCT_MANUFACTURER := Xiaomi
+
+PRODUCT_PACKAGES += \
+    SnapdragonCamera
