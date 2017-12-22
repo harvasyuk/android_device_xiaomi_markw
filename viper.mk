@@ -16,23 +16,17 @@
 
 $(call inherit-product, device/xiaomi/markw/full_markw.mk)
 
-# Inherit some common LineageOS stuff.
-$(call inherit-product, vendor/cm/config/common_full_phone.mk)
+# Inherit some common ViperOS stuff.
+$(call inherit-product, vendor/viper/config/common_full_phone.mk)
 
-# Include Bootanimation configuration
-TARGET_BOOT_ANIMATION_RES := 1080
+# Build type.
+VIPER_BUILD_TYPE=Final-N
 
-PRODUCT_NAME := lineage_markw
+PRODUCT_NAME := viper_markw
 BOARD_VENDOR := Xiaomi
 
-# Google client ID.
 PRODUCT_GMS_CLIENTID_BASE := android-xiaomi
 
 PRODUCT_BUILD_PROP_OVERRIDES += \
     BUILD_FINGERPRINT="Xiaomi/markw/markw:6.0.1/MMB29M/V8.5.3.0.MBEMIED:user/release-keys" \
     PRIVATE_BUILD_DESC="markw-user 6.0.1 MMB29M V8.5.3.0.MBEMIED release-keys"
-
-
-# LineageOS Maintainers
-PRODUCT_BUILD_PROP_OVERRIDES += \
-         DEVICE_MAINTAINERS="SonicBSV (Sergey B.)"
