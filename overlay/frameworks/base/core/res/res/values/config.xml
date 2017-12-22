@@ -35,13 +35,19 @@
         <item>1</item>
         <item>2</item>
         <item>3</item>
+        <item>4</item>
         <item>5</item>
+        <item>6</item>
         <item>7</item>
+        <item>8</item>
         <item>9</item>
+        <item>10</item>
         <item>12</item>
         <item>14</item>
+        <item>16</item>
         <item>19</item>
-        <item>25</item>       <!-- twilight -->
+        <item>25</item>
+        <item>31</item>       <!-- twilight -->
         <item>37</item>
         <item>50</item>       <!-- dim indoor -->
         <item>75</item>
@@ -68,13 +74,18 @@
         <item>2</item>
         <item>3</item>
         <item>5</item>
+        <item>6</item>
         <item>7</item>
+        <item>8</item>
+        <item>9</item>
         <item>10</item>
         <item>11</item>
         <item>12</item>
         <item>15</item>
         <item>17</item>
+        <item>20</item>
         <item>23</item>
+        <item>26</item>
         <item>29</item>
         <item>32</item>
         <item>35</item>
@@ -110,9 +121,8 @@
          when adapting to brighter or darker environments.  This parameter controls how quickly
          brightness changes occur in response to an observed change in light level that exceeds the
          hysteresis threshold. -->
-    <integer name="config_autoBrightnessBrighteningLightFastDebounce">1000</integer>
     <integer name="config_autoBrightnessBrighteningLightDebounce">4000</integer>
-    <integer name="config_autoBrightnessDarkeningLightDebounce">5000</integer>
+    <integer name="config_autoBrightnessDarkeningLightDebounce">8000</integer>
 
     <!-- Period of time in which to consider light samples in milliseconds. -->
     <integer name="config_autoBrightnessAmbientLightHorizon">5000</integer>
@@ -136,9 +146,6 @@
 
     <!-- Is the notification LED intrusive? Used to decide if there should be a disable option -->
     <bool name="config_intrusiveNotificationLed">true</bool>
-
-    <!-- Is the battery LED intrusive? Used to decide if there should be a disable option -->
-    <bool name="config_intrusiveBatteryLed">true</bool>
 
     <!-- List of regexpressions describing the interface (if any) that represent tetherable
          USB interfaces.  If the device doesn't want to support tething over USB this should
@@ -428,36 +435,7 @@
     <!-- Shutdown if the battery temperature exceeds (this value * 0.1) Celsius. -->
     <integer name="config_shutdownBatteryTemperature">600</integer>
 
-    <!-- Hardware keys present on the device, stored as a bit field.
-         This integer should equal the sum of the corresponding value for each
-         of the following keys present:
-             1 - Home
-             2 - Back
-             4 - Menu
-             8 - Assistant (search)
-            16 - App switch
-            32 - Camera
-            64 - Volume rocker
-         For example, a device with Home, Back and Menu keys would set this
-         config to 7. -->
-    <integer name="config_deviceHardwareKeys">71</integer>
-
-    <!-- Hardware keys present on the device with the ability to wake, stored as a bit field.
-         This integer should equal the sum of the corresponding value for each
-         of the following keys present:
-             1 - Home
-             2 - Back
-             4 - Menu
-             8 - Assistant (search)
-            16 - App switch
-            32 - Camera
-            64 - Volume rocker
-         For example, a device with Home, Back and Menu keys would set this
-         config to 7. -->
-    <integer name="config_deviceHardwareWakeKeys">64</integer>
-    <integer name="config_buttonBrightnessSettingDefault">0</integer>
-
-    <!-- Control the behavior when the user long presses the home button.
+     <!-- Control the behavior when the user long presses the home button.
             0 - Nothing
             1 - Menu key
             2 - Recent apps view in SystemUI
@@ -469,18 +447,6 @@
     -->
     <integer name="config_longPressOnHomeBehavior">2</integer>
 
-    <!-- Control the behavior when the user long presses the app switch button.
-            0 - Nothing
-            1 - Menu key
-            2 - Recent apps view in SystemUI
-            3 - Launch assist intent
-            4 - Voice Search
-            5 - In-app Search
-         This needs to match the constants in
-         policy/src/com/android/internal/policy/impl/PhoneWindowManager.java
-    -->
-    <integer name="config_longPressOnAppSwitchBehavior">1</integer>
-
     <!-- Operating volatage for bluetooth controller. 0 by default-->
     <integer name="config_bluetooth_operating_voltage_mv">3300</integer>
 
@@ -490,11 +456,4 @@
 
     <!--  Define Google play service package for FRP-->
     <string name="config_persistentDataPackageName" translatable="false">com.google.android.gms</string>
-
-    <!-- Support in Surfaceflinger for blur layers.
-         NOTE: This requires additional hardware-specific code. -->
-    <bool name="config_uiBlurEnabled">true</bool>
-
-    <!-- Whether notify fingerprint client of successful cancelled authentication -->
-    <bool name="config_notifyClientOnFingerprintCancelSuccess">true</bool>
 </resources>

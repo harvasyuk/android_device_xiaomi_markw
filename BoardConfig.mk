@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2016 The CyanogenMod Project
+# Copyright (C) 2017 Citrus-CAF Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,9 +19,6 @@ BOARD_VENDOR := xiaomi
 LOCAL_PATH := device/xiaomi/markw
 
 TARGET_SPECIFIC_HEADER_PATH := $(LOCAL_PATH)/include
-
-# Deodex
-DISABLE_DEXPREOPT := true
 
 # Architecture
 TARGET_ARCH := arm64
@@ -58,8 +55,10 @@ BOARD_RAMDISK_OFFSET := 0x01000000
 BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
 TARGET_KERNEL_CONFIG := markw_defconfig
 TARGET_KERNEL_SOURCE := kernel/xiaomi/markw
-
-USE_CLANG_PLATFORM_BUILD := true
+TARGET_KERNEL_ARCH := arm64
+TARGET_KERNEL_HEADER_ARCH := arm64
+TARGET_KERNEL_APPEND_DTB := true
+TARGET_KERNEL_CROSS_COMPILE_PREFIX := aarch64-linux-android-
 
 # ANT+
 BOARD_ANT_WIRELESS_DEVICE := "vfs-prerelease"
@@ -105,6 +104,10 @@ BOARD_USES_ALSA_AUDIO := true
 USE_CUSTOM_AUDIO_POLICY := 1
 USE_XML_AUDIO_POLICY_CONF := 1
 
+# FM
+BOARD_HAVE_QCOM_FM := true
+TARGET_QCOM_NO_FM_FIRMWARE := true
+
 # Bluetooth
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(LOCAL_PATH)/bluetooth
 BOARD_HAVE_BLUETOOTH := true
@@ -112,8 +115,13 @@ BOARD_HAVE_BLUETOOTH_QCOM := true
 #BLUETOOTH_HCI_USE_MCT := true
 QCOM_BT_READ_ADDR_FROM_PROP := true
 
+# Bootanimation
+TARGET_BOOTANIMATION_PRELOAD := true
+TARGET_BOOTANIMATION_TEXTURE_CACHE := true
+
 # Camera
 BOARD_QTI_CAMERA_32BIT_ONLY := true
+#TARGET_USES_MEDIA_EXTENSIONS := true
 TARGET_TS_MAKEUP := true
 #TARGET_HAS_LEGACY_CAMERA_HAL1 := true
 USE_DEVICE_SPECIFIC_CAMERA := true
@@ -123,20 +131,14 @@ BOARD_CHARGER_ENABLE_SUSPEND := true
 BOARD_CHARGER_DISABLE_INIT_BLANK := true
 BOARD_GLOBAL_CFLAGS += -DBATTERY_REAL_INFO
 
-# CMHW
-BOARD_USES_CYANOGEN_HARDWARE := true
-BOARD_HARDWARE_CLASS += \
-    hardware/cyanogen/cmhw \
-    $(LOCAL_PATH)/cmhw
-
 # CNE / DPM
 BOARD_USES_QCNE := true
 
+# Dex
+DISABLE_DEXPREOPT := true
+
 # Cpusets
 ENABLE_CPUSETS := true
-
-# Crypto
-TARGET_HW_DISK_ENCRYPTION := true
 
 # Display
 BOARD_EGL_CFG := $(LOCAL_PATH)/configs/egl.cfg
@@ -149,17 +151,17 @@ USE_OPENGL_RENDERER := true
 MAX_EGL_CACHE_KEY_SIZE := 12*1024
 MAX_EGL_CACHE_SIZE := 2048*1024
 TARGET_CONTINUOUS_SPLASH_ENABLED := true
+
 HWUI_COMPILE_FOR_PERF := true
+
+# Encryption
+TARGET_HW_DISK_ENCRYPTION := true
 
 # Filesystem
 BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
 TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
 TARGET_ANDROID_FILESYSTEM_CONFIG_H := $(LOCAL_PATH)/android_filesystem_config.h
-
-# FM
-BOARD_HAVE_QCOM_FM := true
-TARGET_QCOM_NO_FM_FIRMWARE := true
 
 # GPS
 USE_DEVICE_SPECIFIC_GPS := true
@@ -210,18 +212,19 @@ TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
 
 # RIL
+PROTOBUF_SUPPORTED := true
 BOARD_RIL_CLASS := ../../../$(LOCAL_PATH)/ril
 TARGET_RIL_VARIANT := caf
 
 # Sensor
 USE_SENSOR_MULTI_HAL := true
 
-# Tap2Wake
-TARGET_TAP_TO_WAKE_NODE := "/proc/gesture/onoff"
-
 # SELinux
 -include device/qcom/sepolicy/sepolicy.mk
 BOARD_SEPOLICY_DIRS += $(LOCAL_PATH)/sepolicy
+
+# Tap2Wake
+TARGET_TAP_TO_WAKE_NODE := "/proc/gesture/onoff"
 
 # Wi-Fi
 BOARD_HAS_QCOM_WLAN := true

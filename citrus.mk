@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2017 The LineageOS Project
+# Copyright (C) 2017 Citrus-CAF Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,13 +16,13 @@
 
 $(call inherit-product, device/xiaomi/markw/full_markw.mk)
 
-# Inherit some common LineageOS stuff.
-$(call inherit-product, vendor/cm/config/common_full_phone.mk)
+# Inherit some common citrus peel.
+$(call inherit-product, vendor/citrus/common.mk)
 
 # Include Bootanimation configuration
 TARGET_BOOT_ANIMATION_RES := 1080
 
-PRODUCT_NAME := lineage_markw
+PRODUCT_NAME := citrus_markw
 BOARD_VENDOR := Xiaomi
 
 # Google client ID.
@@ -33,6 +33,10 @@ PRODUCT_BUILD_PROP_OVERRIDES += \
     PRIVATE_BUILD_DESC="markw-user 6.0.1 MMB29M V8.5.3.0.MBEMIED release-keys"
 
 
-# LineageOS Maintainers
+# Citrus-CAF Maintainers
 PRODUCT_BUILD_PROP_OVERRIDES += \
          DEVICE_MAINTAINERS="SonicBSV (Sergey B.)"
+
+# CAF REVISION
+  PRODUCT_PROPERTY_OVERRIDES += \
+    ro.caf.branch=LA.UM.5.6.r1-06400-89xx.0

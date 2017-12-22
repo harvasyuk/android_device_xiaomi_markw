@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2017 The LineageOS Project
+# Copyright (C) 2016 The CyanogenMod Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -107,7 +107,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/audio/sound_trigger_mixer_paths_wcd9335.xml:system/etc/sound_trigger_mixer_paths_wcd9335.xml \
     $(LOCAL_PATH)/audio/sound_trigger_mixer_paths.xml:system/etc/sound_trigger_mixer_paths.xml \
     $(LOCAL_PATH)/audio/sound_trigger_platform_info.xml:system/etc/sound_trigger_platform_info.xml \
-    $(LOCAL_PATH)/audio/vendor/audio_effects.conf:system/vendor/etc/audio_effects.conf \
     $(LOCAL_PATH)/audio/vendor/audio_output_policy.conf:system/vendor/etc/audio_output_policy.conf
 
 # XML Audio configuration files
@@ -122,8 +121,9 @@ PRODUCT_COPY_FILES += \
 
 # Camera
 PRODUCT_PACKAGES += \
-    cameraserver \
     Snap
+#    camera.msm8953 \
+#    libmm-qcamera \
     
 
 # Email
@@ -160,6 +160,10 @@ PRODUCT_PACKAGES += \
     memtrack.msm8953 \
     liboverlay \
     libtinyxml
+
+# Doze mode
+#PRODUCT_PACKAGES += \
+#    XiaomiDoze
 
 # Display Livedisplay
 PRODUCT_PACKAGES += \
@@ -265,7 +269,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/etc/perf-profile0.conf:system/vendor/etc/perf-profile0.conf \
     $(LOCAL_PATH)/configs/etc/perf-profile1.conf:system/vendor/etc/perf-profile1.conf 
-    
+
 # Power
 PRODUCT_PACKAGES += \
     power.msm8953
