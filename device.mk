@@ -94,14 +94,11 @@ PRODUCT_PACKAGES += \
 # Audio configuration
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/audio/aanc_tuning_mixer.txt:system/etc/aanc_tuning_mixer.txt \
-    $(LOCAL_PATH)/audio/audio_platform_info_extcodec.xml:system/etc/audio_platform_info_extcodec.xml \
     $(LOCAL_PATH)/audio/audio_platform_info.xml:system/etc/audio_platform_info.xml \
     $(LOCAL_PATH)/audio/mixer_paths_mtp.xml:system/etc/mixer_paths_mtp.xml \
-    $(LOCAL_PATH)/audio/mixer_paths_skuk.xml:system/etc/mixer_paths_skuk.xml \
-    $(LOCAL_PATH)/audio/mixer_paths_wcd9335.xml:system/etc/mixer_paths_wcd9335.xml \
-    $(LOCAL_PATH)/audio/sound_trigger_mixer_paths_wcd9335.xml:system/etc/sound_trigger_mixer_paths_wcd9335.xml \
     $(LOCAL_PATH)/audio/sound_trigger_mixer_paths.xml:system/etc/sound_trigger_mixer_paths.xml \
     $(LOCAL_PATH)/audio/sound_trigger_platform_info.xml:system/etc/sound_trigger_platform_info.xml \
+    $(LOCAL_PATH)/audio/vendor/audio_effects.conf:system/vendor/etc/audio_effects.conf \
     $(LOCAL_PATH)/audio/vendor/audio_output_policy.conf:system/vendor/etc/audio_output_policy.conf
 
 # XML Audio configuration files
@@ -115,14 +112,10 @@ PRODUCT_COPY_FILES += \
      $(TOPDIR)frameworks/av/services/audiopolicy/config/usb_audio_policy_configuration.xml:/system/etc/usb_audio_policy_configuration.xml
 
 # Camera
-#PRODUCT_PACKAGES += \
-#    Snap
-#    camera.msm8953 \
-#    libmm-qcamera \
-    
-# DASH technology
 PRODUCT_PACKAGES += \
-    libdashplayer
+    camera.msm8953 \
+    mm-qcamera-app \
+    libmm-qcamera 
 
 # Device init scripts
 PRODUCT_PACKAGES += \
@@ -255,7 +248,11 @@ PRODUCT_PACKAGES += \
 # Perf
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/etc/perf-profile0.conf:system/vendor/etc/perf-profile0.conf \
-    $(LOCAL_PATH)/configs/etc/perf-profile1.conf:system/vendor/etc/perf-profile1.conf 
+    $(LOCAL_PATH)/configs/etc/perf-profile1.conf:system/vendor/etc/perf-profile1.conf \
+    $(LOCAL_PATH)/configs/etc/perf-profile2.conf:system/vendor/etc/perf-profile2.conf \
+    $(LOCAL_PATH)/configs/etc/perf-profile3.conf:system/vendor/etc/perf-profile3.conf \
+    $(LOCAL_PATH)/configs/etc/perf-profile4.conf:system/vendor/etc/perf-profile4.conf \
+    $(LOCAL_PATH)/configs/etc/perf-profile5.conf:system/vendor/etc/perf-profile5.conf 
 
 # Power
 PRODUCT_PACKAGES += \
