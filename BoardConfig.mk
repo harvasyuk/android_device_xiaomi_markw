@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2017 The LineageOS Project
+# Copyright (C) 2018 The LineageOS Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -115,7 +115,7 @@ QCOM_BT_READ_ADDR_FROM_PROP := true
 BOARD_QTI_CAMERA_32BIT_ONLY := true
 TARGET_USES_MEDIA_EXTENSIONS := true
 #TARGET_TS_MAKEUP := true
-TARGET_HAS_LEGACY_CAMERA_HAL1 := true
+#TARGET_HAS_LEGACY_CAMERA_HAL1 := true
 USE_DEVICE_SPECIFIC_CAMERA := true
 
 # Charger
@@ -123,23 +123,21 @@ BOARD_CHARGER_ENABLE_SUSPEND := true
 BOARD_CHARGER_DISABLE_INIT_BLANK := true
 BOARD_GLOBAL_CFLAGS += -DBATTERY_REAL_INFO
 
-# CMHW
-#BOARD_USES_CYANOGEN_HARDWARE := true
-#BOARD_HARDWARE_CLASS += \
-#    hardware/cyanogen/cmhw \
-#    $(LOCAL_PATH)/cmhw
-
 # CNE / DPM
 BOARD_USES_QCNE := true
 
 # Dex
-WITH_DEXPREOPT := false
+ifeq ($(HOST_OS),linux)
+  ifneq ($(TARGET_BUILD_VARIANT),eng)
+    WITH_DEXPREOPT ?= true
+  endif
+endif
+WITH_DEXPREOPT_BOOT_IMG_ONLY ?= true
 
 # Cpusets
 ENABLE_CPUSETS := true
 
 # Display
-BOARD_EGL_CFG := $(LOCAL_PATH)/configs/egl.cfg
 BOARD_USES_ADRENO := true
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 OVERRIDE_RS_DRIVER := libRSDriver_adreno.so
@@ -150,6 +148,9 @@ MAX_EGL_CACHE_KEY_SIZE := 12*1024
 MAX_EGL_CACHE_SIZE := 2048*1024
 TARGET_CONTINUOUS_SPLASH_ENABLED := true
 
+# Enable workaround for HWC vsync issue
+TARGET_HAS_HH_VSYNC_ISSUE := true
+
 # Encryption
 TARGET_HW_DISK_ENCRYPTION := true
 
@@ -158,6 +159,9 @@ BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
 TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
 TARGET_ANDROID_FILESYSTEM_CONFIG_H := $(LOCAL_PATH)/android_filesystem_config.h
+
+# for kernel headers
+BOARD_GLOBAL_CFLAGS += -DCONFIG_MACH_XIAOMI_MARKW
 
 # FM
 #BOARD_HAVE_QCOM_FM := true
@@ -177,10 +181,6 @@ TARGET_PROVIDES_KEYMASTER := true
 
 # Lights
 TARGET_PROVIDES_LIBLIGHT := true
-
-# Media
-#TARGET_USES_MEDIA_EXTENSIONS := true
-#TARGET_ENABLE_QC_AV_ENHANCEMENTS := true
 
 # Partitions
 BOARD_BOOTIMAGE_PARTITION_SIZE := 67108864         # 65536 * 1204
@@ -207,7 +207,7 @@ TARGET_USE_SDCLANG := true
 
 # Recovery
 #BOARD_HAS_LARGE_FILESYSTEM := true
-TARGET_RECOVERY_FSTAB := $((LOCAL_PATH)/rootdir/fstab.qcom
+TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/rootdir/fstab.qcom
 TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
 TARGET_RECOVERY_UI_LIB := librecovery_ui_msm
 TARGET_RECOVERY_UPDATER_LIBS := librecovery_updater_msm
@@ -218,9 +218,6 @@ TARGET_USERIMAGES_USE_F2FS := true
 PROTOBUF_SUPPORTED := true
 BOARD_RIL_CLASS := ../../../$(LOCAL_PATH)/ril
 TARGET_RIL_VARIANT := caf
-
-# Recovery
-TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/rootdir/fstab.qcom
 
 # Sensor
 USE_SENSOR_MULTI_HAL := true
