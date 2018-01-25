@@ -16,7 +16,10 @@
 
 <resources>
     <!-- Enable HAL3 by default -->
-    <bool name="config_use_hal3">false</bool>
+    <bool name="config_use_hal3">true</bool>
+    
+    <!-- Enable support for LGE HDR -->
+    <bool name="lge_hdr_mode">true</bool>
 
     <!-- Restart preview for back camera onPictureTaken -->
     <bool name="back_camera_restart_preview_onPictureTaken">true</bool>
