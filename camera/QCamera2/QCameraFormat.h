@@ -1,4 +1,4 @@
-/* Copyright (c) 2015-2016, The Linux Foundation. All rights reserved.
+/* Copyright (c) 2016, The Linux Foundation. All rights reserved.
 *
 * Redistribution and use in source and binary forms, with or without
 * modification, are permitted provided that the following conditions are
@@ -27,21 +27,18 @@
 *
 */
 
-#ifndef __QCAMERA3EXTERNAL_H__
-#define __QCAMERA3EXTERNAL_H__
 
-// System dependencies
-#include <utils/Errors.h>
+/* Macros exposed to gralloc to query camera HAL for gralloc format to be
+used for vedor specific camera formats. */
 
-// Display dependencies
-#include "QServiceUtils.h"
+#define PREFERRED_IMPLEMENTATION_DEFINED_CAMERA_FORMAT HAL_PIXEL_FORMAT_YCbCr_420_SP_VENUS
+#define PREFERRED_YCBCR_420_888_CAMERA_FORMAT HAL_PIXEL_FORMAT_NV21_ZSL
 
-namespace qcamera {
+/* Macros exposed to camera HAL to get the preview and callback stream
+formats. Please ensure that if the macros below are changed then the
+corresponding change should be done in the above macros and vice versa
+to prevent format mismatch between Gralloc and Camera HAL for stream
+buffers */
 
-inline android::status_t setCameraLaunchStatus(uint32_t on) {
-    return ::setCameraLaunchStatus(on);
-}
-
-}; // namespace qcamera
-
-#endif /* __QCAMERA3EXTERNAL_H__ */
+#define PREVIEW_STREAM_FORMAT CAM_FORMAT_YUV_420_NV12_VENUS
+#define CALLBACK_STREAM_FORMAT CAM_FORMAT_YUV_420_NV21
