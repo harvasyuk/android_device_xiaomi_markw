@@ -17,3 +17,4 @@ on boot
    setprop ro.secure 1
    setprop ro.build.type user
    setprop ro.build.tags release-keys
+   setprop ro.build.selinux 0
