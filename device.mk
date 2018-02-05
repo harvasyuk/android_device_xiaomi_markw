@@ -35,7 +35,6 @@ TARGET_SCREEN_WIDTH := 1080
 
 # Permissions
 PRODUCT_COPY_FILES += \
-    external/ant-wireless/antradio-library/com.dsi.ant.antradio_library.xml:system/etc/permissions/com.dsi.ant.antradio_library.xml \
     frameworks/native/data/etc/android.hardware.bluetooth.xml:system/etc/permissions/android.hardware.bluetooth.xml \
     frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml \
     frameworks/native/data/etc/android.hardware.camera.flash-autofocus.xml:system/etc/permissions/android.hardware.camera.flash-autofocus.xml \
@@ -73,6 +72,9 @@ PRODUCT_PACKAGES += \
     AntHalService \
     com.dsi.ant.antradio_library \
     libantradio
+    
+PRODUCT_COPY_FILES += \
+    external/ant-wireless/antradio-library/com.dsi.ant.antradio_library.xml:system/etc/permissions/com.dsi.ant.antradio_library.xml \
 
 # FM
 PRODUCT_PACKAGES += \
@@ -84,6 +86,7 @@ PRODUCT_PACKAGES += \
     audiod \
     audio.a2dp.default \
     audio.primary.msm8953 \
+    audio_amplifier.msm8953 \
     audio.r_submix.default \
     audio.usb.default \
     libaudio-resampler \
@@ -95,12 +98,8 @@ PRODUCT_PACKAGES += \
 # Audio configuration
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/audio/aanc_tuning_mixer.txt:system/etc/aanc_tuning_mixer.txt \
-    $(LOCAL_PATH)/audio/audio_platform_info_extcodec.xml:system/etc/audio_platform_info_extcodec.xml \
     $(LOCAL_PATH)/audio/audio_platform_info.xml:system/etc/audio_platform_info.xml \
     $(LOCAL_PATH)/audio/mixer_paths_mtp.xml:system/etc/mixer_paths_mtp.xml \
-    $(LOCAL_PATH)/audio/mixer_paths_skuk.xml:system/etc/mixer_paths_skuk.xml \
-    $(LOCAL_PATH)/audio/mixer_paths_wcd9335.xml:system/etc/mixer_paths_wcd9335.xml \
-    $(LOCAL_PATH)/audio/sound_trigger_mixer_paths_wcd9335.xml:system/etc/sound_trigger_mixer_paths_wcd9335.xml \
     $(LOCAL_PATH)/audio/sound_trigger_mixer_paths.xml:system/etc/sound_trigger_mixer_paths.xml \
     $(LOCAL_PATH)/audio/sound_trigger_platform_info.xml:system/etc/sound_trigger_platform_info.xml \
     $(LOCAL_PATH)/audio/vendor/audio_output_policy.conf:system/vendor/etc/audio_output_policy.conf
@@ -117,18 +116,14 @@ PRODUCT_COPY_FILES += \
 
 # Camera
 PRODUCT_PACKAGES += \
+    camera.msm8953 \
+    libmm-qcamera \
+    mm-qcamera-app \
     SnapdragonCamera
-#    camera.msm8953 \
-#    libmm-qcamera \
-    
 
 # Email
 PRODUCT_PACKAGES += \
     Email
-    
-# DASH technology
-PRODUCT_PACKAGES += \
-    libdashplayer
 
 # Device init scripts
 PRODUCT_PACKAGES += \
@@ -137,6 +132,7 @@ PRODUCT_PACKAGES += \
     init.qcom.sh \
     init.qcom.usb.rc \
     init.qcom.usb.sh \
+    init.safailnet.rc \
     init.target.rc \
     ueventd.qcom.rc
 
@@ -156,10 +152,6 @@ PRODUCT_PACKAGES += \
     memtrack.msm8953 \
     liboverlay \
     libtinyxml
-
-# Doze mode
-#PRODUCT_PACKAGES += \
-#    XiaomiDoze
 
 # Display Livedisplay
 PRODUCT_PACKAGES += \
@@ -261,11 +253,6 @@ PRODUCT_PACKAGES += \
     libOmxVdec \
     libOmxVenc \
     libstagefrighthw
-
-# Perf
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/etc/perf-profile0.conf:system/vendor/etc/perf-profile0.conf \
-    $(LOCAL_PATH)/configs/etc/perf-profile1.conf:system/vendor/etc/perf-profile1.conf 
 
 # Power
 PRODUCT_PACKAGES += \

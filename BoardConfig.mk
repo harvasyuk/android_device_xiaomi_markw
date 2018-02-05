@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2017 The LineageOS Project
+# Copyright (C) 2018 The LineageOS Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -48,17 +48,12 @@ TARGET_NO_BOOTLOADER := true
 # Kernel
 BOARD_KERNEL_BASE := 0x80000000
 BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom msm_rtb.filter=0x237 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 androidboot.bootdevice=7824900.sdhci earlycon=msm_hsl_uart,0x78af000 no_console_suspend=1
-BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_KERNEL_TAGS_OFFSET := 0x00000100
 BOARD_RAMDISK_OFFSET := 0x01000000
 BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
 TARGET_KERNEL_CONFIG := markw_defconfig
 TARGET_KERNEL_SOURCE := kernel/xiaomi/markw
-TARGET_KERNEL_ARCH := arm64
-TARGET_KERNEL_HEADER_ARCH := arm64
-TARGET_KERNEL_APPEND_DTB := true
-TARGET_KERNEL_CROSS_COMPILE_PREFIX := aarch64-linux-android-
 
 # ANT+
 BOARD_ANT_WIRELESS_DEVICE := "vfs-prerelease"
@@ -95,7 +90,7 @@ AUDIO_FEATURE_ENABLED_VBAT_MONITOR := true
 #AUDIO_FEATURE_ENABLED_VOICE_CONCURRENCY := true
 AUDIO_FEATURE_ENABLED_VORBIS_OFFLOAD := true
 AUDIO_FEATURE_ENABLED_WMA_OFFLOAD  := true
-AUDIO_FEATURE_ENABLED_EXT_AMPLIFIER := false
+AUDIO_FEATURE_ENABLED_EXT_AMPLIFIER := true
 TARGET_USES_QCOM_MM_AUDIO := true
 
 AUDIO_USE_LL_AS_PRIMARY_OUTPUT := true
@@ -107,6 +102,9 @@ USE_XML_AUDIO_POLICY_CONF := 1
 # FM
 BOARD_HAVE_QCOM_FM := true
 TARGET_QCOM_NO_FM_FIRMWARE := true
+
+# for kernel headers
+BOARD_GLOBAL_CFLAGS += -DCONFIG_MACH_XIAOMI_MARKW
 
 # Bluetooth
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(LOCAL_PATH)/bluetooth
@@ -121,9 +119,8 @@ TARGET_BOOTANIMATION_TEXTURE_CACHE := true
 
 # Camera
 BOARD_QTI_CAMERA_32BIT_ONLY := true
-#TARGET_USES_MEDIA_EXTENSIONS := true
 TARGET_TS_MAKEUP := true
-TARGET_HAS_LEGACY_CAMERA_HAL1 := true
+#TARGET_HAS_LEGACY_CAMERA_HAL1 := true
 USE_DEVICE_SPECIFIC_CAMERA := true
 
 # Charger
@@ -140,14 +137,21 @@ BOARD_HARDWARE_CLASS += \
 # CNE / DPM
 BOARD_USES_QCNE := true
 
-# Dex
-DISABLE_DEXPREOPT := true
+# Dexpreopt
+ifeq ($(HOST_OS),linux)
+ifneq ($(TARGET_BUILD_VARIANT),userdebug)
+WITH_DEXPREOPT := true
+WITH_DEXPREOPT_DEBUG_INFO := false
+USE_DEX2OAT_DEBUG := false
+DONT_DEXPREOPT_PREBUILTS := true
+WITH_DEXPREOPT_PIC := true
+endif
+endif
 
 # Cpusets
 ENABLE_CPUSETS := true
 
 # Display
-BOARD_EGL_CFG := $(LOCAL_PATH)/configs/egl.cfg
 BOARD_USES_ADRENO := true
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 OVERRIDE_RS_DRIVER := libRSDriver_adreno.so
@@ -157,6 +161,11 @@ USE_OPENGL_RENDERER := true
 MAX_EGL_CACHE_KEY_SIZE := 12*1024
 MAX_EGL_CACHE_SIZE := 2048*1024
 TARGET_CONTINUOUS_SPLASH_ENABLED := true
+
+HWUI_COMPILE_FOR_PERF := true
+
+# Enable workaround for HWC vsync issue
+TARGET_HAS_HH_VSYNC_ISSUE := true
 
 # Encryption
 TARGET_HW_DISK_ENCRYPTION := true
@@ -184,7 +193,6 @@ TARGET_PROVIDES_LIBLIGHT := true
 
 # Media
 TARGET_USES_MEDIA_EXTENSIONS := true
-TARGET_ENABLE_QC_AV_ENHANCEMENTS := true
 
 # Partitions
 BOARD_BOOTIMAGE_PARTITION_SIZE := 67108864         # 65536 * 1204
@@ -208,7 +216,7 @@ TARGET_USE_SDCLANG := true
 
 # Recovery
 BOARD_HAS_LARGE_FILESYSTEM := true
-TARGET_RECOVERY_FSTAB := $((LOCAL_PATH)/rootdir/fstab.qcom
+TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/rootdir/fstab.qcom
 TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
 TARGET_RECOVERY_UI_LIB := librecovery_ui_msm
 TARGET_RECOVERY_UPDATER_LIBS := librecovery_updater_msm
@@ -219,9 +227,6 @@ TARGET_USERIMAGES_USE_F2FS := true
 PROTOBUF_SUPPORTED := true
 BOARD_RIL_CLASS := ../../../$(LOCAL_PATH)/ril
 TARGET_RIL_VARIANT := caf
-
-# Recovery
-TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/rootdir/fstab.qcom
 
 # Sensor
 USE_SENSOR_MULTI_HAL := true
