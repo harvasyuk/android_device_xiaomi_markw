@@ -658,19 +658,11 @@ service port-bridge /system/bin/port-bridge
     group radio system inet
     disabled
     oneshot
-
-service qmiproxy /system/bin/qmiproxy
+    
+service sensorservice /system/bin/sensorservice
     class main
-    user radio
-    group radio qcom_diag
-    disabled
-
-# QMUX must be in multiple groups to support external process connections
-service qmuxd /system/bin/qmuxd
-    class main
-    user root
-    group radio audio bluetooth gps nfc qcom_diag
-    disabled
+    user system
+    group system    
 
 service netmgrd /system/bin/netmgrd
     class main
@@ -894,11 +886,6 @@ service qseeproxydaemon /system/vendor/bin/qseeproxydaemon
     user system
     group system
     writepid /dev/cpuset/system-background/tasks
-
-service esepmdaemon /system/vendor/bin/esepmdaemon
-    class core
-    user system
-    group nfc
 
 # Seemp health service
 service seemp_healthd /system/vendor/bin/seemp_healthd

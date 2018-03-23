@@ -40,8 +40,5 @@
   <string name="preferred_network_mode_wcdma_only_choice">Только 3G</string>
   <string name="preferred_network_mode_gsm_only_choice">Только 2G</string>
   <string name="preferred_network_mode_gsm_wcdma_preferred_choice">2G/предпочт. 3G</string>
-
-  <!-- Mobile network settings, COLP -->
-  <string name="connected_line_identification_title">Определитель номера</string>
-  <string name="connected_line_identification_summary">Отключите эту опцию, если номера не отображаются в истории вызовов</string>
+  
 </resources>

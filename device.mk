@@ -66,12 +66,14 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/com.nxp.mifare.xml:system/etc/permissions/com.nxp.mifare.xml \
     frameworks/native/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml
 
-#ANT+ stack
+# ANT+
 PRODUCT_PACKAGES += \
     AntHalService \
-    libantradio \
-    antradio_app \
-    libvolumelistener
+    com.dsi.ant.antradio_library \
+    libantradio
+
+PRODUCT_COPY_FILES += \
+    external/ant-wireless/antradio-library/com.dsi.ant.antradio_library.xml:system/etc/permissions/com.dsi.ant.antradio_library.xml
 
 # FM
 PRODUCT_PACKAGES += \
@@ -89,7 +91,10 @@ PRODUCT_PACKAGES += \
     libaudio-resampler \
     libqcomvisualizer \
     libqcomvoiceprocessing \
+    libqcomvoiceprocessingdescriptors \
     libqcompostprocbundle \
+    libtinyalsa \
+    libtinycompress \
     tinymix
 
 # Audio configuration
@@ -117,14 +122,6 @@ PRODUCT_PACKAGES += \
     libmm-qcamera \
     mm-qcamera-app \
     SnapdragonCamera
-
-# DASH technology
-PRODUCT_PACKAGES += \
-    libdashplayer
-
-# EGL
-PRODUCT_PACKAGES += \
-    libGLES_android
 
 # Email
 PRODUCT_PACKAGES += \
@@ -312,7 +309,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/wifi/hostapd.deny:system/etc/hostapd/hostapd.deny \
     $(LOCAL_PATH)/wifi/hostapd_default.conf:system/etc/hostapd/hostapd_default.conf \
     $(LOCAL_PATH)/wifi/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf \
-    $(LOCAL_PATH)/wifi/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
     $(LOCAL_PATH)/wifi/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf
 
 PRODUCT_COPY_FILES += \

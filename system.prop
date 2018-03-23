@@ -98,6 +98,11 @@ debug.gralloc.enable_fb_ubwc=1
 ro.opengles.version=196610
 ro.sf.lcd_density=440
 
+# Enable B service adj transition by default
+ro.sys.fw.bservice_enable=true
+ro.sys.fw.bservice_limit=5
+ro.sys.fw.bservice_age=5000
+
 # Fingerprint
 persist.qfp=false
 
@@ -190,6 +195,14 @@ ro.am.reschedule_service=true
 
 # set cutoff voltage to 3400mV
 ro.cutoff_voltage_mv=3400
+
+# set video call cache
+persist.radio.schd.cache=3500
+
+# Set ims sip user agent
+ro.build.software.version=Android7.1.2
+ro.fota.oem=Xiaomi
+ro.product.model=Redmi 4 Prime
 
 # System property for FM transmitter
 ro.fm.transmitter=false
