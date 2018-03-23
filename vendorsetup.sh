@@ -1,3 +1,1 @@
-add_lunch_combo cos_markw-userdebug
-add_lunch_combo cos_markw-user
-add_lunch_combo cos_markw-eng
+add_lunch_combo omni_markw-userdebug

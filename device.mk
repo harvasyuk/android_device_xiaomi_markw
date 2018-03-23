@@ -40,6 +40,8 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml \
     frameworks/native/data/etc/android.hardware.camera.flash-autofocus.xml:system/etc/permissions/android.hardware.camera.flash-autofocus.xml \
     frameworks/native/data/etc/android.hardware.camera.front.xml:system/etc/permissions/android.hardware.camera.front.xml \
+    frameworks/native/data/etc/android.hardware.camera.full.xml:system/etc/permissions/android.hardware.camera.full.xml \
+    frameworks/native/data/etc/android.hardware.camera.raw.xml:system/etc/permissions/android.hardware.camera.raw.xml \
     frameworks/native/data/etc/android.hardware.consumerir.xml:system/etc/permissions/android.hardware.consumerir.xml \
     frameworks/native/data/etc/android.hardware.fingerprint.xml:system/etc/permissions/android.hardware.fingerprint.xml \
     frameworks/native/data/etc/android.hardware.location.gps.xml:system/etc/permissions/android.hardware.location.gps.xml \
@@ -65,6 +67,10 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml \
     frameworks/native/data/etc/com.nxp.mifare.xml:system/etc/permissions/com.nxp.mifare.xml \
     frameworks/native/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml
+
+# OMNI Charger Images
+PRODUCT_PACKAGES += \
+    omni_charger_res_images
 
 # ANT+
 PRODUCT_PACKAGES += \
@@ -118,14 +124,8 @@ PRODUCT_COPY_FILES += \
 
 # Camera
 PRODUCT_PACKAGES += \
-    camera.msm8953 \
-    libmm-qcamera \
     mm-qcamera-app \
     SnapdragonCamera
-
-# DASH technology
-PRODUCT_PACKAGES += \
-    libdashplayer
 
 # Email
 PRODUCT_PACKAGES += \
@@ -138,7 +138,6 @@ PRODUCT_PACKAGES += \
     init.qcom.sh \
     init.qcom.usb.rc \
     init.qcom.usb.sh \
-    init.safailnet.rc \
     init.target.rc \
     ueventd.qcom.rc
 
@@ -150,6 +149,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libcnefeatureconfig
 
+# Device Settings
+PRODUCT_PACKAGES += \
+    XiaomiParts
+
 # Display
 PRODUCT_PACKAGES += \
     gralloc.msm8953 \
@@ -159,10 +162,6 @@ PRODUCT_PACKAGES += \
     liboverlay \
     libtinyxml
 
-# Display Livedisplay
-PRODUCT_PACKAGES += \
-    libjni_livedisplay
-
 # DPM
 PRODUCT_BOOT_JARS += \
     com.qti.dpmframework \
@@ -170,7 +169,7 @@ PRODUCT_BOOT_JARS += \
 
 # DRM
 PRODUCT_PACKAGES += \
-    libprotobuf-cpp-lite \
+    libprotobuf-cpp-full \
 
 # Ebtables
 PRODUCT_PACKAGES += \
@@ -200,7 +199,7 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/gps/etc/sap.conf:system/etc/sap.conf \
     $(LOCAL_PATH)/gps/etc/xtwifi.conf:system/etc/xtwifi.conf \
     $(LOCAL_PATH)/configs/GNSS.cfg:system/etc/GNSS.cfg
-    
+
 # IPA Manager
 PRODUCT_PACKAGES += \
     ipacm \
@@ -226,8 +225,8 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/keylayout/gf3208.kl:system/usr/keylayout/gf3208.kl \
     $(LOCAL_PATH)/keylayout/uinput-fpc.kl:system/usr/keylayout/uinput-fpc.kl \
     $(LOCAL_PATH)/keylayout/msm8953-snd-card-mtp_Button_Jack.kl:system/usr/keylayout/msm8953-snd-card-mtp_Button_Jack.kl \
-    $(LOCAL_PATH)/keylayout/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl
-    
+    $(LOCAL_PATH)/keylayout/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl    
+
 # Libshims
 PRODUCT_PACKAGES += \
     libshims_camera
@@ -241,7 +240,7 @@ PRODUCT_PACKAGES += \
     libextmedia_jni \
     libc2dcolorconvert \
     libstagefrighthw
-
+    
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/media_codecs.xml:system/etc/media_codecs.xml \
     $(LOCAL_PATH)/configs/media_codecs_performance.xml:system/etc/media_codecs_performance.xml \
@@ -251,6 +250,10 @@ PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml
+
+# Messaging
+PRODUCT_PACKAGES += \
+    messaging
 
 # OMX
 PRODUCT_PACKAGES += \
@@ -263,7 +266,7 @@ PRODUCT_PACKAGES += \
     libOmxQcelp13Enc \
     libOmxSwVencHevc \
     libOmxVdec \
-    libOmxVenc 
+    libOmxVenc
 
 # Power
 PRODUCT_PACKAGES += \
@@ -310,10 +313,6 @@ PRODUCT_PACKAGES += \
     wcnss_service
 
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/wfdconfig.xml:system/etc/wfdconfig.xml \
-    $(LOCAL_PATH)/configs/wfdconfigsink.xml:system/etc/wfdconfigsink.xml
-
-PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/wifi/hostapd.accept:system/etc/hostapd/hostapd.accept \
     $(LOCAL_PATH)/wifi/hostapd.deny:system/etc/hostapd/hostapd.deny \
     $(LOCAL_PATH)/wifi/hostapd_default.conf:system/etc/hostapd/hostapd_default.conf \
@@ -322,7 +321,7 @@ PRODUCT_COPY_FILES += \
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/wifi/fstman.ini:system/etc/wifi/fstman.ini \
-    $(LOCAL_PATH)/wifi/WCNSS_qcom_cfg.ini:system/etc/wifi/WCNSS_qcom_cfg.ini 
+    $(LOCAL_PATH)/wifi/WCNSS_qcom_cfg.ini:system/etc/wifi/WCNSS_qcom_cfg.ini
 
 # default.prop
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
