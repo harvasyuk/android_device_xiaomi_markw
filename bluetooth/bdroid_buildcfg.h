@@ -17,14 +17,7 @@
 
 #ifndef _BDROID_BUILDCFG_H
 #define _BDROID_BUILDCFG_H
-
-#include <cutils/properties.h>
-#include <string.h>
-
 #define BTM_DEF_LOCAL_NAME "Xiaomi Redmi 4 Prime"
-#define BLUETOOTH_QTI_SW TRUE
-#define MAX_ACL_CONNECTIONS   16
-#define MAX_L2CAP_CHANNELS    16
+// Disables read remote device feature
 #define BLE_VND_INCLUDED TRUE
-#define BT_CLEAN_TURN_ON_DISABLED TRUE
 #endif
