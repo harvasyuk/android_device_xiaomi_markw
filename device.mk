@@ -124,8 +124,8 @@ PRODUCT_COPY_FILES += \
 # Bluetooth
 PRODUCT_PACKAGES += \
     libbt-vendor \
-    android.hardware.bluetooth@1.0-service \
-    android.hardware.bluetooth@1.0-impl
+    android.hardware.bluetooth@1.0-service-qti \
+    android.hardware.bluetooth@1.0-impl-qti
 
 # Camera
 PRODUCT_PACKAGES += \
@@ -329,7 +329,7 @@ PRODUCT_COPY_FILES += \
 
 # Power
 PRODUCT_PACKAGES += \
-    power.msm8953
+    power.qcom
     
 PRODUCT_PACKAGES += \
     android.hardware.power@1.0-service \
