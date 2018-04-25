@@ -71,12 +71,12 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/privapp-permissions-qti.xml:system/etc/permissions/privapp-permissions-qti.xml
 
 # ANT
-#PRODUCT_PACKAGES += \
+PRODUCT_PACKAGES += \
     AntHalService \
     com.dsi.ant.antradio_library \
     libantradio  
    
-#PRODUCT_COPY_FILES += \
+PRODUCT_COPY_FILES += \
     external/ant-wireless/antradio-library/com.dsi.ant.antradio_library.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/com.dsi.ant.antradio_library.xml 
 
 #Audio
@@ -94,6 +94,8 @@ PRODUCT_PACKAGES += \
     libqcomvoiceprocessingdescriptors \
     libtinyalsa \
     libtinycompress \
+    libwebrtc_audio_preprocessing \
+    libopus \
     tinymix
 
 PRODUCT_PACKAGES += \
@@ -124,10 +126,9 @@ PRODUCT_COPY_FILES += \
 	$(TOPDIR)frameworks/av/services/audiopolicy/config/usb_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/usb_audio_policy_configuration.xml
 
 # Bluetooth
-#PRODUCT_PACKAGES += \
-    libbt-vendor \
-    android.hardware.bluetooth@1.0-service \
-    android.hardware.bluetooth@1.0-impl
+PRODUCT_PACKAGES += \
+    libbt-vendor 
+
 
 # Camera
 PRODUCT_PACKAGES += \
@@ -150,7 +151,7 @@ PRODUCT_PACKAGES += \
 
 # Consumerir
 PRODUCT_PACKAGES += \
-    android.hardware.ir@1.0-impl \
+    android.hardware.ir@1.0-impl 
 
 # Display
 PRODUCT_PACKAGES += \
@@ -275,6 +276,11 @@ PRODUCT_PACKAGES += \
     android.hardware.light@2.0-impl \
     android.hardware.light@2.0-service
 
+# IPACM
+PRODUCT_PACKAGES += \
+    ipacm \
+    IPACM_cfg.xml
+
 # IRQ
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/msm_irqbalance.conf:$(TARGET_COPY_OUT_VENDOR)/etc/msm_irqbalance.conf
@@ -298,12 +304,13 @@ PRODUCT_PACKAGES += \
     libOmxVenc
 
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/media_codecs.xml:system/etc/media_codecs.xml \
-    $(LOCAL_PATH)/configs/media_profiles_8953_v1.xml:system/etc/media_profiles_8953_v1.xml \
-    $(LOCAL_PATH)/configs/media_profiles.xml:system/etc/media_profiles.xml \
-    frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
-    frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml \
-    frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml
+    $(LOCAL_PATH)/configs/media_codecs.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs.xml \
+    $(LOCAL_PATH)/configs/media_profiles_V1_0.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_profiles_V1_0.xml \
+    $(LOCAL_PATH)/configs/media_codecs_performance.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_performance.xml \
+    frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_audio.xml \
+    frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_telephony.xml \
+    frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_video.xml \
+    frameworks/av/media/libstagefright/data/media_codecs_google_video_le.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_video_le.xml
 
 # NET
 PRODUCT_PACKAGES += \
@@ -327,25 +334,20 @@ PRODUCT_COPY_FILES += \
 
 # Perf configuration
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/powerhint.xml:$(TARGET_COPY_OUT_VENDOR)/etc/powerhint.xml 
+    $(LOCAL_PATH)/configs/powerhint.xml:$(TARGET_COPY_OUT_VENDOR)/etc/powerhint.xml \
+    $(LOCAL_PATH)/configs/perfboostsconfig.xml:$(TARGET_COPY_OUT_VENDOR)/etc/perfboostsconfig.xml 
 
 # Power
 PRODUCT_PACKAGES += \
-    android.hardware.power@1.0-service \
-    android.hardware.power@1.0-impl
-
-# RCS
-PRODUCT_PACKAGES += \
-    rcs_service_aidl \
-    rcs_service_aidl.xml \
-    rcs_service_api \
-    rcs_service_api.xml
+    android.hardware.power@1.0-service-qti 
 
 # RIL
 PRODUCT_PACKAGES += \
     librmnetctl \
     libprotobuf-cpp-full \
     libqdMetaData.system \
+    libril \
+    librilutils \
     libxml2
 
 # Seccomp policy
@@ -376,11 +378,12 @@ PRODUCT_PACKAGES += \
 
 # Thermal
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/thermal-engine.conf:system/etc/thermal-engine.conf
+    $(LOCAL_PATH)/configs/thermal-engine.conf:$(TARGET_COPY_OUT_VENDOR)/etc/thermal-engine.conf
 
 PRODUCT_PACKAGES += \
    android.hardware.thermal@1.0-impl \
-   android.hardware.thermal@1.0-service
+   android.hardware.thermal@1.0-service \
+   thermal.msm8953
 
 # USB HAL
 PRODUCT_PACKAGES += \
@@ -393,12 +396,46 @@ PRODUCT_PACKAGES += \
 
 # VNDK-SP
 PRODUCT_PACKAGES += \
-    vndk-sp
+    android.hardware.graphics.allocator@2.0.vndk-sp\
+    android.hardware.graphics.mapper@2.0.vndk-sp\
+    android.hardware.graphics.common@1.0.vndk-sp\
+    android.hardware.renderscript@1.0.vndk-sp\
+    android.hidl.base@1.0.vndk-sp\
+    android.hidl.memory@1.0.vndk-sp\
+    libRSCpuRef.vndk-sp\
+    libRSDriver.vndk-sp\
+    libRS_internal.vndk-sp\
+    libbacktrace.vndk-sp\
+    libbase.vndk-sp\
+    libbcinfo.vndk-sp\
+    libblas.vndk-sp\
+    libc++.vndk-sp\
+    libcompiler_rt.vndk-sp\
+    libcutils.vndk-sp\
+    libft2.vndk-sp\
+    libhardware.vndk-sp\
+    libhidlbase.vndk-sp\
+    libhidlmemory.vndk-sp\
+    libhidltransport.vndk-sp\
+    libhwbinder.vndk-sp\
+    libion.vndk-sp\
+    liblzma.vndk-sp\
+    libpng.vndk-sp\
+    libunwind.vndk-sp\
+    libutils.vndk-sp\
 
 # WiFi HAL
 PRODUCT_PACKAGES += \
     android.hardware.wifi@1.0-service
-
+    
+# Other
+PRODUCT_PACKAGES += \
+    libbrillo \
+    libbrillo-stream \
+    libbrillo-binder \
+    libsparse \
+    libmediacodecservice 
+    
 # Wi-Fi
 PRODUCT_PACKAGES += \
     libcld80211 \
@@ -421,9 +458,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/wifi/fstman.ini:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/fstman.ini \
     $(LOCAL_PATH)/wifi/WCNSS_cfg.dat:system/etc/firmware/wlan/prima/WCNSS_cfg.dat \
     $(LOCAL_PATH)/wifi/WCNSS_qcom_cfg.ini:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/WCNSS_qcom_cfg.ini
-
-PRODUCT_PROPERTY_OVERRIDES += \
-    wifi.interface=wlan0
 
 PRODUCT_GMS_CLIENTID_BASE := android-xiaomi
 

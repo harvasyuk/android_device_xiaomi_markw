@@ -16,13 +16,16 @@ LOCAL_PATH:= $(call my-dir)
 
 include $(CLEAR_VARS)
 
-LOCAL_MODULE := lights.$(TARGET_BOARD_PLATFORM)
+LOCAL_C_INCLUDES += $(TARGET_OUT_HEADERS)/common/inc
+LOCAL_C_INCLUDES += $(TARGET_OUT_HEADERS)/qdcm/inc
 
+LOCAL_SRC_FILES := lights.c lights_prv.cpp
 LOCAL_MODULE_RELATIVE_PATH := hw
-LOCAL_VENDOR_MODULE := true
+LOCAL_SHARED_LIBRARIES := liblog libcutils libsdm-disp-vndapis
+LOCAL_CFLAGS := -DLOG_TAG=\"qdlights\"
+LOCAL_CLANG  := true
+LOCAL_MODULE := lights.$(TARGET_BOARD_PLATFORM)
 LOCAL_MODULE_TAGS := optional
-
-LOCAL_SRC_FILES := lights.c
-LOCAL_SHARED_LIBRARIES := liblog libcutils
+LOCAL_VENDOR_MODULE := true
 
 include $(BUILD_SHARED_LIBRARY)

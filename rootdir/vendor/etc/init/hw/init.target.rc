@@ -83,24 +83,26 @@ on post-fs-data
 mkdir /data/vendor/camera 0770 camera camera
 
 # Start camera server as daemon
-service qcamerasvr /system/vendor/bin/mm-qcamera-daemon
+service qcamerasvr /system/bin/mm-qcamera-daemon
     class late_start
     user camera
     group camera system inet input graphics
     setenv LD_PRELOAD "libshim_c.so"
 
 #Start up peripheral manager
-service per_mgr /vendor/bin/pm-service
+service per_mgr /system/vendor/bin/pm-service
     class core
     user system
-    group system net_raw
+    group system
     ioprio rt 4
+    writepid /dev/cpuset/system-background/tasks
 
-service per_proxy /vendor/bin/pm-proxy
+service per_proxy /system/vendor/bin/pm-proxy
     class core
     user system
     group system
     disabled
+    writepid /dev/cpuset/system-background/tasks
 
 on property:init.svc.per_mgr=running
     start per_proxy
@@ -112,8 +114,9 @@ service qseecomd /vendor/bin/qseecomd
    class core
    user root
    group root
+   writepid /dev/cpuset/system-background/tasks
 
-service thermal-engine /vendor/bin/thermal-engine
+service thermal-engine /system/vendor/bin/thermal-engine
    class main
    user root
    socket thermal-send-client stream 0666 system system
@@ -121,16 +124,12 @@ service thermal-engine /vendor/bin/thermal-engine
    socket thermal-recv-passive-client stream 0666 system system
    socket thermal-send-rule stream 0660 system system
    group root
+   writepid /dev/cpuset/system-background/tasks
 
 service adsprpcd /system/vendor/bin/adsprpcd
    class main
    user media
    group media
-
-service audiod /system/vendor/bin/audiod
-   class late_start
-   user system
-   group system
 
 service wcnss-service /system/vendor/bin/wcnss_service
     class main
@@ -138,17 +137,24 @@ service wcnss-service /system/vendor/bin/wcnss_service
     group system wifi radio
     oneshot
 
+service audiod /system/vendor/bin/audiod
+   class late_start
+   user system
+   group system
+
 service imsqmidaemon /system/vendor/bin/imsqmidaemon
     class main
     user system
     socket ims_qmid stream 0660 system radio
     group radio log diag
+    writepid /dev/cpuset/system-background/tasks
 
 service imsdatadaemon /system/vendor/bin/imsdatadaemon
     class main
     user system
     socket ims_datad stream 0660 system radio
     group system wifi radio inet log diag
+    writepid /dev/cpuset/system-background/tasks
     disabled
 
 on property:vendor.ims.QMI_DAEMON_STATUS=1
@@ -158,12 +164,14 @@ service ims_rtp_daemon /system/vendor/bin/ims_rtp_daemon
    class main
    user system
    group radio diag inet log
+   writepid /dev/cpuset/system-background/tasks
    disabled
 
 service vendor.imsrcsservice /system/vendor/bin/imsrcsd
    class main
    user system
    group radio diag inet log
+   writepid /dev/cpuset/system-background/tasks
    disabled
 
 on property:vendor.ims.DATA_DAEMON_STATUS=1
@@ -194,10 +202,16 @@ on property:init.svc.zygote=running
 on property:init.svc.zygote=restarting
     stop ppd
 
+service energy-awareness /system/vendor/bin/energy-awareness
+    class main
+    user root
+    group system
+    oneshot
+
 service hvdcp_opti /system/vendor/bin/hvdcp_opti
     class main
     user root
-    group system wakelock
+    group root
 
 on charger
     write /sys/devices/system/cpu/cpu2/online 0

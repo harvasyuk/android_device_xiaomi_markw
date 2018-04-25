@@ -31,6 +31,15 @@
 #include <LocNetIface.h>
 #include <gps_extended_c.h>
 
+/* these declarations will be moved inside api file */
+/* Constructs for interaction with loc_net_iface library */
+typedef void (*LocAgpsOpenResultCb)(
+        bool isSuccess, AGpsExtType agpsType, const char* apn,
+        AGpsBearerType bearerType, void* userDataPtr);
+
+typedef void (*LocAgpsCloseResultCb)(
+        bool isSuccess, AGpsExtType agpsType, void* userDataPtr);
+
 /*--------------------------------------------------------------------
  * CLASS LocNetIfaceAgps
  *
@@ -41,7 +50,7 @@ class LocNetIfaceAgps {
 
 public:
     /* status method registered as part of AGPS Extended callbacks */
-    static void agpsStatusCb(AGnssExtStatusIpV4 status);
+    static void agpsStatusCb(AGpsExtStatus* status);
 
     /* Callbacks registered with Internet and SUPL LocNetIface instances */
     static void wwanStatusCallback(
@@ -56,11 +65,10 @@ public:
     static LocAgpsOpenResultCb sAgpsOpenResultCb;
     static LocAgpsCloseResultCb sAgpsCloseResultCb;
     static void* sUserDataPtr;
-    static AgpsCbInfo sAgpsCbInfo;
 };
 
 /* Global method accessed from HAL to fetch AGPS status cb */
-extern "C" AgpsCbInfo& LocNetIfaceAgps_getAgpsCbInfo(
+extern "C" agps_status_extended LocNetIfaceAgps_getStatusCb(
         LocAgpsOpenResultCb openResultCb,
         LocAgpsCloseResultCb closeResultCb, void* userDataPtr);
 
