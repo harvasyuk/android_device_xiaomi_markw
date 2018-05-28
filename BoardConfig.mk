@@ -1,7 +1,6 @@
 #
 # Copyright (C) 2016 The CyanogenMod Project
-#           (C) 2017 The LineageOS Project
-# Copyright (C) 2017 The XPerience Project
+#           (C) 2018 The LineageOS Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,9 +18,6 @@
 DEVICE_PATH := device/xiaomi/markw
 
 TARGET_SPECIFIC_HEADER_PATH := $(DEVICE_PATH)/include
-
-# Added -DCONFIG_MACH_XIAOMI_MARKW for kernel headers
-BOARD_GLOBAL_CFLAGS += -DCONFIG_MACH_XIAOMI_MARKW
 
 # Architecture
 TARGET_ARCH 	    	:= arm64
@@ -58,8 +54,8 @@ BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x01000000 --tags_offset 0x00000100
 TARGET_KERNEL_CONFIG := markw_defconfig
 TARGET_KERNEL_SOURCE := kernel/xiaomi/msm8953
 
-# ANT
-BOARD_ANT_WIRELESS_DEVICE := "vfs-prerelease"
+# ANT+
+BOARD_ANT_WIRELESS_DEVICE := "qualcomm-uart"
 
 # Audio
 AUDIO_FEATURE_ENABLED_ANC_HEADSET := true
@@ -90,20 +86,17 @@ USE_XML_AUDIO_POLICY_CONF := 1
 
 # Bluetooth
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(DEVICE_PATH)/bluetooth
-BOARD_HAVE_BLUETOOTH_QCOM                   := true
-BLUETOOTH_HCI_USE_MCT                       := true
-QCOM_BT_USE_SMD_TTY                         := true
+BOARD_HAVE_BLUETOOTH := true
+BOARD_HAVE_BLUETOOTH_QCOM := true
 QCOM_BT_USE_BTNV := true
+QCOM_BT_USE_SMD_TTY := true
 
 # Camera
 USE_DEVICE_SPECIFIC_CAMERA := true
 BOARD_QTI_CAMERA_32BIT_ONLY := true
 TARGET_USES_MEDIA_EXTENSIONS := true
 TARGET_USES_QTI_CAMERA_DEVICE := true
-#TARGET_NEEDS_PLATFORM_TEXT_RELOCATIONS := true
 TARGET_TS_MAKEUP := true
-#TARGET_NEEDS_GCC_LIBC := true
-#TARGET_USES_NON_TREBLE_CAMERA := true
 
 # disabel ir for kernel headers
 BOARD_GLOBAL_CFLAGS += -DCONFIG_MSMB_WITHOUT_IR
@@ -115,38 +108,35 @@ BOARD_CHARGER_ENABLE_SUSPEND := true
 # CNE / DPM
 BOARD_USES_QCNE := true
 
-# Cpusets
-ENABLE_CPUSETS := true
-
 # Dexpreopt
 ifeq ($(HOST_OS),linux)
-  ifneq ($(TARGET_BUILD_VARIANT),userdebug)
-    ifeq ($(WITH_DEXPREOPT),)
-      WITH_DEXPREOPT := true
-    endif
-  endif
+  WITH_DEXPREOPT ?= true
+  WITH_DEXPREOPT_BOOT_IMG_AND_SYSTEM_SERVER_ONLY ?= true
 endif
-WITH_DEXPREOPT_BOOT_IMG_ONLY ?= true
 
-#Display
-MAX_VIRTUAL_DISPLAY_DIMENSION := 4096
+# Display
+BOARD_USES_ADRENO := true
+
 TARGET_FORCE_HWC_FOR_VIRTUAL_DISPLAYS := true
-
+TARGET_USES_C2D_COMPOSITION := true
+TARGET_USES_HWC2 := true
+TARGET_USES_GRALLOC1 := true
 TARGET_USES_ION := true
 TARGET_USES_NEW_ION_API :=true
-TARGET_USES_GRALLOC1 := true
-TARGET_USES_HWC2 := true
 TARGET_USES_OVERLAY := true
+TARGET_USES_COLOR_METADATA := true
+TARGET_CONTINUOUS_SPLASH_ENABLED := true
+USE_OPENGL_RENDERER := true
 
 MAX_EGL_CACHE_KEY_SIZE := 12*1024
 MAX_EGL_CACHE_SIZE := 2048*1024
 
-NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
-SF_VSYNC_EVENT_PHASE_OFFSET_NS := 6000000
-VSYNC_EVENT_PHASE_OFFSET_NS := 2000000
+MAX_VIRTUAL_DISPLAY_DIMENSION := 4096
 
-OVERRIDE_RS_DRIVER := libRSDriver_adreno.so
-USE_OPENGL_RENDERER := true
+OVERRIDE_RS_DRIVER:= libRSDriver_adreno.so
+
+VSYNC_EVENT_PHASE_OFFSET_NS := 2000000
+SF_VSYNC_EVENT_PHASE_OFFSET_NS := 6000000
 
 # Encryption
 TARGET_HW_DISK_ENCRYPTION := true
@@ -159,13 +149,15 @@ TARGET_QCOM_NO_FM_FIRMWARE         := true
 TARGET_USERIMAGES_USE_F2FS := true
 TARGET_USERIMAGES_USE_EXT4 := true
 BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
-
-# Filesystem
 TARGET_FS_CONFIG_GEN := $(DEVICE_PATH)/config.fs
 
+# Exfat
+TARGET_EXFAT_DRIVER := sdfat
+
 # GPS
-BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := true
+TARGET_NO_RPC := true
 USE_DEVICE_SPECIFIC_GPS := true
+BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := $(TARGET_BOARD_PLATFORM)
 
 # HIDL
 DEVICE_MANIFEST_FILE := $(DEVICE_PATH)/manifest.xml
@@ -196,6 +188,7 @@ TARGET_PER_MGR_ENABLED := true
 
 # Power
 TARGET_HAS_NO_WIFI_STATS := true
+TARGET_USES_INTERACTION_BOOST := true
 
 # Tap2Wake
 TARGET_TAP_TO_WAKE_NODE := "/proc/gesture/onoff"
@@ -206,10 +199,11 @@ BOARD_USES_QCOM_HARDWARE := true
 
 # RIL
 TARGET_RIL_VARIANT := caf
+PROTOBUF_SUPPORTED := true
 
 # Recovery
 ifeq ($(AB_OTA_UPDATER), true)
-TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/rootdir/fstab_AB.qcom
+TARGET_RECOVERY_FSTAB := $(VENDOR_PATH)/rootdir/fstab_AB.qcom
 else
 TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/rootdir/recovery/fstab.qcom
 endif
@@ -217,6 +211,12 @@ endif
 # SELinux
 include device/qcom/sepolicy/sepolicy.mk
 BOARD_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy
+
+# Sensors
+USE_SENSOR_MULTI_HAL := true
+
+# Timeservice
+BOARD_USES_QC_TIME_SERVICES := true
 
 # Treble
 #BOARD_PROPERTY_OVERRIDES_SPLIT_ENABLED := true

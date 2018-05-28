@@ -17,23 +17,10 @@
 
 #ifndef _BDROID_BUILDCFG_H
 #define _BDROID_BUILDCFG_H
+#define BTM_DEF_LOCAL_NAME   "Redmi 4 Prime"
 
 #include <cutils/properties.h>
 #include <string.h>
-
-static inline const char* BtmGetDefaultName()
-{
-    char product_device[PROPERTY_VALUE_MAX];
-    property_get("ro.product.device", product_device, "");
-
-    if (strstr(product_device, "markw"))
-        return "Xiaomi Redmi 4 Prime";
-
-    // Fallback to ro.product.model
-    return "";
-}
-
-#define BTM_DEF_LOCAL_NAME BtmGetDefaultName()
 
 #define MAX_ACL_CONNECTIONS    16
 #define MAX_L2CAP_CHANNELS    16
