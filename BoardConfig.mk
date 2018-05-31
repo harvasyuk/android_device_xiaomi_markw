@@ -19,6 +19,9 @@ DEVICE_PATH := device/xiaomi/markw
 
 TARGET_SPECIFIC_HEADER_PATH := $(DEVICE_PATH)/include
 
+# Compile libhwui in performance mode
+HWUI_COMPILE_FOR_PERF := true
+
 # Architecture
 TARGET_ARCH 	    	:= arm64
 TARGET_ARCH_VARIANT 	:= armv8-a
@@ -32,7 +35,9 @@ TARGET_2ND_ARCH_VARIANT := armv7-a-neon
 TARGET_2ND_CPU_ABI 	:= armeabi-v7a
 TARGET_2ND_CPU_ABI2 	:= armeabi
 TARGET_2ND_CPU_VARIANT 	:= cortex-a53
+TARGET_USE_QCOM_BIONIC_OPTIMIZATION := true
 
+TARGET_USES_UEFI := true
 TARGET_BOARD_PLATFORM 	  := msm8953
 TARGET_BOARD_PLATFORM_GPU := qcom-adreno506
 
@@ -87,9 +92,10 @@ USE_XML_AUDIO_POLICY_CONF := 1
 # Bluetooth
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(DEVICE_PATH)/bluetooth
 BOARD_HAVE_BLUETOOTH := true
-BOARD_HAVE_BLUETOOTH_QCOM := true
+BOARD_HAVE_BLUETOOTH_QCOM                   := true
+BLUETOOTH_HCI_USE_MCT                       := true
+QCOM_BT_USE_SMD_TTY                         := true
 QCOM_BT_USE_BTNV := true
-QCOM_BT_USE_SMD_TTY := true
 
 # Camera
 USE_DEVICE_SPECIFIC_CAMERA := true
@@ -104,6 +110,7 @@ BOARD_GLOBAL_CFLAGS += -DCONFIG_MSMB_WITHOUT_IR
 # Charger
 BOARD_CHARGER_DISABLE_INIT_BLANK := true
 BOARD_CHARGER_ENABLE_SUSPEND := true
+WITH_LINEAGE_CHARGER := false
 
 # CNE / DPM
 BOARD_USES_QCNE := true
@@ -195,7 +202,7 @@ TARGET_TAP_TO_WAKE_NODE := "/proc/gesture/onoff"
 
 # QCOM support
 BOARD_USES_QCOM_HARDWARE := true
-#TARGET_USE_SDCLANG := true
+TARGET_USE_SDCLANG := true
 
 # RIL
 TARGET_RIL_VARIANT := caf

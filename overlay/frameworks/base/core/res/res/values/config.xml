@@ -38,20 +38,21 @@
          backlight values for LUX levels between these control points.
          Must be overridden in platform specific overlays -->
     <integer-array name="config_autoBrightnessLevels">
-        <item>5</item>
-        <item>9</item>
-        <item>14</item>
-        <item>25</item>
-        <item>50</item>
-        <item>100</item>
-        <item>200</item>
-        <item>300</item>
-        <item>500</item>
-        <item>750</item>
-        <item>1000</item>
+        <item>1</item>
+        <item>10</item>
+        <item>30</item>
+        <item>80</item>
+        <item>120</item>
+        <item>225</item>
+        <item>320</item>
+        <item>550</item>
+        <item>880</item>
+        <item>1250</item>
         <item>2000</item>
-        <item>4000</item>
-        <item>7000</item>
+        <item>3000</item>
+        <item>5000</item>
+        <item>5500</item>
+        <item>7500</item>
     </integer-array>
 
     <!-- Array of output values for LCD backlight corresponding to the LUX values
@@ -60,30 +61,39 @@
          The brightness values must be between 0 and 255 and be non-decreasing.
          This must be overridden in platform specific overlays -->
     <integer-array name="config_autoBrightnessLcdBacklightValues">
-        <item>10</item>
-        <item>20</item>
-        <item>35</item>
-        <item>60</item>
-        <item>90</item>
-        <item>125</item>
-        <item>190</item>
+        <item>11</item>
+        <item>18</item>
+        <item>29</item>
+        <item>34</item>
+        <item>46</item>
+        <item>54</item>
+        <item>69</item>
+        <item>81</item>
+        <item>100</item>
+        <item>123</item>
+        <item>148</item>
+        <item>187</item>
+        <item>196</item>
+        <item>225</item>
         <item>255</item>
     </integer-array>
+
+    <!-- Screen brightness used to dim the screen when the user activity
+         timeout expires.  May be less than the minimum allowed brightness setting
+         that can be set by the user. -->
+    <integer name="config_screenBrightnessDim">1</integer>
 
     <!-- Minimum screen brightness setting allowed by the power manager.
          The user is forbidden from setting the brightness below this level. -->
     <integer name="config_screenBrightnessSettingMinimum">1</integer>
 
-    <!-- Stability requirements in milliseconds for accepting a new brightness level.  This is used
-         for debouncing the light sensor.  Different constants are used to debounce the light sensor
-         when adapting to brighter or darker environments.  This parameter controls how quickly
-         brightness changes occur in response to an observed change in light level that exceeds the
-         hysteresis threshold. -->
-    <integer name="config_autoBrightnessBrighteningLightDebounce">4000</integer>
-    <integer name="config_autoBrightnessDarkeningLightDebounce">4000</integer>
+    <!-- Maximum screen brightness allowed by the power manager.
+         The user is forbidden from setting the brightness above this level. -->
+    <integer name="config_screenBrightnessSettingMaximum">255</integer>
 
-    <!-- Period of time in which to consider light samples in milliseconds. -->
-    <integer name="config_autoBrightnessAmbientLightHorizon">5000</integer>
+    <!-- Default screen brightness setting.
+         Must be in the range specified by minimum and maximum. -->
+    <integer name="config_screenBrightnessSettingDefault">69</integer>
     
     <!-- The duration (in milliseconds) of a short animation. -->
     <integer name="config_shortAnimTime">200</integer>
@@ -103,11 +113,11 @@
 
     <!-- Slow brightness animation ramp rate in brightness units per second-->
     <integer translatable="false" name="config_brightness_ramp_rate_slow">40</integer>
-    
+
     <!-- Configure mobile network MTU. The standard default is set here but each carrier
-    may have a specific value set in an overlay config.xml file. 
-    This really must be 1358 as per 3GPP standards and packet segmentation on the LTE
-    radio.-->
+         may have a specific value set in an overlay config.xml file. 
+         This really must be 1358 as per 3GPP standards and packet segmentation on the LTE
+         radio.-->
     <integer name="config_mobile_mtu">1500</integer>
 
     <!--  Maximum number of supported users -->
@@ -120,8 +130,6 @@
     <!-- Minimum color temperature, in Kelvin, supported by Night display. -->
     <integer name="config_nightDisplayColorTemperatureMin">2596</integer>
 
-
-
     <!-- Default LED on time for notification LED in milliseconds. -->
     <integer name="config_defaultNotificationLedOn">500</integer>
 
@@ -130,6 +138,10 @@
 
     <!-- Is the notification LED intrusive? Used to decide if there should be a disable option -->
     <bool name="config_intrusiveNotificationLed">true</bool>
+
+    <!-- Is the battery LED intrusive? Used to decide if there should be a disable option -->
+    <bool name="config_intrusiveBatteryLed">true</bool>
+    
 
     <!-- Vibrator pattern for feedback about a long screen/key press -->
     <integer-array name="config_longPressVibePattern">
@@ -385,6 +397,16 @@
 
     <!-- AlwaysOnDisplay  -->
     <bool name="config_dozeAlwaysOnDisplayAvailable">true</bool>
+    
+    <!-- Screen pinning exit mode
+        0 - Navigation bar (default behavior)
+        1 - Long press back button
+        2 - Long press power button
+    -->
+    <integer name="config_screenPinningExitMode">2</integer>
+
+    <!-- Whether navigation bar can be disabled (for devices with hardware keys) -->
+    <bool name="config_canDisableNavigationBar">true</bool>
     
     <!-- Should the pinner service pin the Camera application? -->
     <bool name="config_pinnerCameraApp">true</bool>
