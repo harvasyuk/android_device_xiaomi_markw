@@ -27,7 +27,7 @@ TARGET_ARCH 	    	:= arm64
 TARGET_ARCH_VARIANT 	:= armv8-a
 TARGET_CPU_ABI 		:= arm64-v8a
 TARGET_CPU_ABI2 	:=
-TARGET_CPU_VARIANT 	:= generic
+TARGET_CPU_VARIANT 	:= cortex-a53
 
 # Second architecture
 TARGET_2ND_ARCH 	:= arm
@@ -114,11 +114,16 @@ WITH_LINEAGE_CHARGER := false
 # CNE / DPM
 BOARD_USES_QCNE := true
 
+
 # Dexpreopt
 ifeq ($(HOST_OS),linux)
   ifneq ($(TARGET_BUILD_VARIANT),eng)
     ifeq ($(WITH_DEXPREOPT),)
       WITH_DEXPREOPT := true
+      WITH_DEXPREOPT_DEBUG_INFO := false
+      USE_DEX2OAT_DEBUG := false	
+      DONT_DEXPREOPT_PREBUILTS := true
+      WITH_DEXPREOPT_PIC := true
       WITH_DEXPREOPT_BOOT_IMG_AND_SYSTEM_SERVER_ONLY := true
     endif
   endif
@@ -202,6 +207,8 @@ TARGET_PER_MGR_ENABLED := true
 # Power
 TARGET_HAS_NO_WIFI_STATS := true
 TARGET_USES_INTERACTION_BOOST := true
+TARGET_PROVIDES_POWERHAL := true
+TARGET_HAS_LEGACY_POWER_STATS := true
 
 # Tap2Wake
 TARGET_TAP_TO_WAKE_NODE := "/proc/gesture/onoff"
@@ -248,6 +255,7 @@ BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_qcwcn
 WIFI_DRIVER_FW_PATH_AP := "ap"
 WIFI_DRIVER_FW_PATH_STA := "sta"
 WPA_SUPPLICANT_VERSION := VER_0_8_X
+WIFI_HIDL_FEATURE_AWARE := true
 
 # Inherit the proprietary files
 -include vendor/xiaomi/markw/BoardConfigVendor.mk
