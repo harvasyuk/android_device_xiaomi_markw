@@ -29,6 +29,7 @@
 #include <fcntl.h>
 #include <stdlib.h>
 #include <sys/sysinfo.h>
+#include <android-base/properties.h>
 #define _REALLY_INCLUDE_SYS__SYSTEM_PROPERTIES_H_
 #include <sys/_system_properties.h>
 
@@ -47,11 +48,8 @@ char const *layer_cache_size;
 char const *shape_cache_size;
 char const *gradient_cache_size;
 char const *drop_shadow_cache_size;
-char const *small_cache_width;
-char const *small_cache_height;
-char const *large_cache_width;
-char const *large_cache_height;
 
+using android::base::GetProperty;
 using android::init::property_set;
 
 void property_override(char const prop[], char const value[])
@@ -96,44 +94,38 @@ static void init_alarm_boot_properties()
      }
 }
 
-void check_device()
+void check_ram()
 {
     struct sysinfo sys;
 
     sysinfo(&sys);
 
     if (sys.totalram > 3072ull * 1024 * 1024) {
-        // from - phone-xxhdpi-4096-dalvik-heap.mk
+        // original values in file framework/native: phone-xxhdpi-4096-dalvik-heap.mk
+        // 4GB - from vince 7.1 values
         heapstartsize = "16m";
-        heapgrowthlimit = "256m";
+        heapgrowthlimit = "192m";
         heapsize = "512m";
         heapminfree = "4m";
         heapmaxfree = "8m";
-        texture_cache_size="88";
-        layer_cache_size="58";
+        texture_cache_size="88"; //increased texture cachce size
+        layer_cache_size="58"; //increased layer cachce size
         shape_cache_size="4";
-        gradient_cache_size="2";
-        drop_shadow_cache_size="8";
-        small_cache_width="2048";
-        small_cache_height="2048";
-        large_cache_width="4096";
-        large_cache_height = "2048";
+        gradient_cache_size="1";
+        drop_shadow_cache_size="6";
     } else if (sys.totalram > 2048ull * 1024 * 1024) {
-        // from - phone-xxhdpi-3072-dalvik-heap.mk
-        heapstartsize = "8m";
-        heapgrowthlimit = "288m";
-        heapsize = "768m";
-        heapminfree = "512k";
-        heapmaxfree = "8m";
-        texture_cache_size="88";
-        layer_cache_size="58";
+        // original values in file framework/native: phone-xxhdpi-3072-dalvik-heap.mk
+        // 3GB - from markw 6.0 values
+        heapstartsize = "16m";
+        heapgrowthlimit = "192m";
+        heapsize = "512m";
+        heapminfree = "8m";
+        heapmaxfree = "32m";
+        texture_cache_size="88"; //increased texture cachce size
+        layer_cache_size="58"; //increased layer cachce size
         shape_cache_size="4";
-        gradient_cache_size="2";
-        drop_shadow_cache_size="8";
-        small_cache_width="2048";
-        small_cache_height="2048";
-        large_cache_width="4096";
-        large_cache_height = "4096";
+        gradient_cache_size="1";
+        drop_shadow_cache_size="6";
     } else {
         // from - phone-xxhdpi-2048-dalvik-heap.mk
         heapstartsize = "16m";
@@ -143,29 +135,36 @@ void check_device()
         heapmaxfree = "8m";
         texture_cache_size="72";
         layer_cache_size="48";
+        shape_cache_size="4";
         gradient_cache_size="1";
         drop_shadow_cache_size="6";
-        small_cache_width="1024";
-        small_cache_height="1024";
-        large_cache_width="2048";
-        large_cache_height = "1024";
    }
+}
+
+void gsi_check()
+{
+    std::string product;
+
+    product = GetProperty("ro.product.device", "");
+
+    // override device specific props for GSI
+    if (product == "phhgsi_arm64_a") {
+        property_override("ro.product.model", "Redmi 4 Prime");
+        property_override("ro.product.brand", "Xiaomi");
+        property_override("ro.product.name", "markw");
+        property_override("ro.product.device", "markw");
+        property_override("ro.product.manufacturer", "Xiaomi");
+        property_override("ro.build.product", "markw");
+        property_override("ro.build.description", "markw-user 6.0.1 MMB29M V9.2.3.0.MBEMIEK release-keys");
+        property_override("ro.build.fingerprint", "Xiaomi/markw/markw:6.0.1/MMB29M/V9.2.3.0.MBEMIEK:user/release-keys");
+    }
 }
 
 void vendor_load_properties()
 {
     init_alarm_boot_properties();
-    check_device();
-
-    // override device specific props for GSI
-    property_override("ro.product.model", "Redmi 4 Prime");
-    property_override("ro.product.brand", "Xiaomi");
-    property_override("ro.product.name", "markw");
-    property_override("ro.product.device", "markw");
-    property_override("ro.product.manufacturer", "Xiaomi");
-    property_override("ro.build.product", "markw");
-    property_override("ro.build.description", "markw-user 6.0.1 MMB29M V9.2.3.0.MBEMIEK release-keys");
-    property_override("ro.build.fingerprint", "Xiaomi/markw/markw:6.0.1/MMB29M/V9.2.3.0.MBEMIEK:user/release-keys");
+    check_ram();
+    gsi_check();
 
     property_set("dalvik.vm.heapstartsize", heapstartsize);
     property_set("dalvik.vm.heapgrowthlimit", heapgrowthlimit);
@@ -173,16 +172,4 @@ void vendor_load_properties()
     property_set("dalvik.vm.heaptargetutilization", "0.75");
     property_set("dalvik.vm.heapminfree", heapminfree);
     property_set("dalvik.vm.heapmaxfree", heapmaxfree);
-
-    property_set("ro.hwui.texture_cache_size", texture_cache_size);
-    property_set("ro.hwui.layer_cache_size", layer_cache_size);
-    property_set("ro.hwui.r_buffer_cache_size", "8");
-    property_set("ro.hwui.path_cache_size", "32");
-    property_set("ro.hwui.gradient_cache_size", gradient_cache_size);
-    property_set("ro.hwui.drop_shadow_cache_size", drop_shadow_cache_size);
-    property_set("ro.hwui.texture_cache_flushrate", "0.4");
-    property_set("ro.hwui.text_small_cache_width", small_cache_width);
-    property_set("ro.hwui.text_small_cache_height", small_cache_height);
-    property_set("ro.hwui.text_large_cache_width", large_cache_width);
-    property_set("ro.hwui.text_large_cache_height", large_cache_height);
 }

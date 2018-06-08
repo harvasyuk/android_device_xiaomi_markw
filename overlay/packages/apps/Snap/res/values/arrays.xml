@@ -19,7 +19,6 @@
 
     <array name="camera_id_entries" translatable="false">
         <item>@string/pref_camera_id_entry_back</item>
-        <item>@string/pref_camera_id_entry_back</item>
         <item>@string/pref_camera_id_entry_front</item>
     </array>
 

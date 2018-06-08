@@ -19,7 +19,7 @@
 $(call inherit-product, device/xiaomi/markw/full_markw.mk)
 
 # Inherit some common AOSP stuff.
-$(call inherit-product, vendor/aosp/config/common.mk)
+$(call inherit-product, vendor/aosp/common.mk)
 
 # Boot animation
 TARGET_SCREEN_WIDTH := 1080
