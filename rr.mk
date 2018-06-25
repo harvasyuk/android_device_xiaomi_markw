@@ -37,6 +37,7 @@ PRODUCT_BRAND := Xiaomi
 PRODUCT_DEVICE := markw
 PRODUCT_MANUFACTURER := Xiaomi
 PRODUCT_NAME := rr_markw
+PRODUCT_MODEL := Redmi 4 Prime
 
 PRODUCT_GMS_CLIENTID_BASE := android-xiaomi
 

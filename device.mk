@@ -20,8 +20,7 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/product_launched_with_m.mk)
 
 # Overlay
 DEVICE_PACKAGE_OVERLAYS += \
-    $(LOCAL_PATH)/overlay \
-    $(LOCAL_PATH)/overlay-lineage
+    $(LOCAL_PATH)/overlay 
 
 PRODUCT_ENFORCE_RRO_TARGETS := \
     framework-res
@@ -79,11 +78,7 @@ PRODUCT_COPY_FILES += \
 # ANT+
 PRODUCT_PACKAGES += \
     AntHalService \
-    com.dsi.ant.antradio_library \
-    libantradio  
-   
-PRODUCT_COPY_FILES += \
-    external/ant-wireless/antradio-library/com.dsi.ant.antradio_library.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/com.dsi.ant.antradio_library.xml 
+    antradio_app
 
 #Audio
 PRODUCT_PACKAGES += \
@@ -352,9 +347,7 @@ PRODUCT_COPY_FILES += \
 
 # Power
 PRODUCT_PACKAGES += \
-    android.hardware.power@1.0-impl \
-    android.hardware.power@1.0-service \
-    power.qcom
+    android.hardware.power@1.0-service-qti
 
 # RCS
 PRODUCT_PACKAGES += \
@@ -401,9 +394,9 @@ PRODUCT_PACKAGES += \
 
 # Thermal
 PRODUCT_PACKAGES += \
+    thermal.msm8953 \
     android.hardware.thermal@1.0-impl \
-    android.hardware.thermal@1.0-service \
-    thermal.msm8953
+    android.hardware.thermal@1.0-service 
 
 # Tetheroffload
 PRODUCT_PACKAGES += \
@@ -425,7 +418,7 @@ PRODUCT_PACKAGES += \
 
 # WiFi HAL
 PRODUCT_PACKAGES += \
-    android.hardware.wifi@1.0-service 
+    android.hardware.wifi@1.0-service  
     
 # Wi-Fi
 PRODUCT_PACKAGES += \
@@ -435,7 +428,6 @@ PRODUCT_PACKAGES += \
     wificond \
     wifilogd \
     libwpa_client \
-    libQWiFiSoftApCfg \
     libwifi-hal-qcom \
     wpa_supplicant \
     wpa_supplicant.conf
@@ -450,9 +442,10 @@ PRODUCT_COPY_FILES += \
 
 PRODUCT_GMS_CLIENTID_BASE := android-xiaomi
 
-# Xiaomi Parts
-PRODUCT_PACKAGES += \
-    XiaomiParts
+# Xiaomi add-on's
+#PRODUCT_PACKAGES += \
+    XiaomiParts \
+    XiaomiDoze
 
 # Inherit proprietary files
 $(call inherit-product-if-exists, vendor/xiaomi/markw/markw-vendor.mk)
