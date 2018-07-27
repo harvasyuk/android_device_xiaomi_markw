@@ -79,5 +79,4 @@
   <item name="battery.capacity">4000</item>
   <allow-in-power-save package="com.google.android.gms" />
   <allow-in-data-usage-save package="com.google.android.gms" />
-  
 </device>

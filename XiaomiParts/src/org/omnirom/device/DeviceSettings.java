@@ -21,15 +21,12 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.res.Resources;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
-import android.preference.TwoStatePreference;
 import android.provider.Settings;
 import android.text.TextUtils;
 import android.view.MenuItem;
@@ -42,18 +39,13 @@ import android.util.Log;
 public class DeviceSettings extends PreferenceActivity implements
         Preference.OnPreferenceChangeListener {
 
-    private static final String KEY_CATEGORY_DISPLAY = "display";
     public static final String KEY_VIBSTRENGTH = "vib_strength";
-    public static final String KEY_KCAL_RGB_RED = "kcal_rgb_red";
-    public static final String KEY_KCAL_RGB_BLUE = "kcal_rgb_blue";
-    public static final String KEY_KCAL_RGB_GREEN = "kcal_rgb_green";
-    public static final String KEY_KCAL_RGB_MIN = "kcal_rgb_min";
-    public static final String KEY_KCAL_SAT_INTENSITY = "kcal_sat_intensity";
-    public static final String KEY_KCAL_SCR_CONTR = "key_kcal_scr_contr";
-    public static final String KEY_KCAL_SCR_VAL = "key_kcal_scr_val";
-    public static final String KEY_KCAL_SCR_HUE = "key_kcal_scr_hue";
+    public static final String KEY_YELLOW_TORCH_BRIGHTNESS = "yellow_torch_brightness";
+    public static final String KEY_WHITE_TORCH_BRIGHTNESS = "white_torch_brightness";
 
     private VibratorStrengthPreference mVibratorStrength;
+    private YellowTorchBrightnessPreference mYellowTorchBrightness;
+    private WhiteTorchBrightnessPreference mWhiteTorchBrightness;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -65,9 +57,18 @@ public class DeviceSettings extends PreferenceActivity implements
         mVibratorStrength = (VibratorStrengthPreference) findPreference(KEY_VIBSTRENGTH);
         if (mVibratorStrength != null) {
             mVibratorStrength.setEnabled(VibratorStrengthPreference.isSupported());
-    }
+        }
 
-}
+        mYellowTorchBrightness = (YellowTorchBrightnessPreference) findPreference(KEY_YELLOW_TORCH_BRIGHTNESS);
+        if (mYellowTorchBrightness != null) {
+            mYellowTorchBrightness.setEnabled(YellowTorchBrightnessPreference.isSupported());
+        }
+        
+        mWhiteTorchBrightness = (WhiteTorchBrightnessPreference) findPreference(KEY_WHITE_TORCH_BRIGHTNESS);
+        if (mWhiteTorchBrightness != null) {
+            mWhiteTorchBrightness.setEnabled(WhiteTorchBrightnessPreference.isSupported());
+        }
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -89,16 +90,5 @@ public class DeviceSettings extends PreferenceActivity implements
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         return true;
-    }
-
-    private boolean isAppInstalled(String uri) {
-        PackageManager pm = getPackageManager();
-        try {
-            pm.getPackageInfo(uri, PackageManager.GET_ACTIVITIES);
-            return true;
-        } catch (PackageManager.NameNotFoundException e) {
-        }
-
-        return false;
     }
 }

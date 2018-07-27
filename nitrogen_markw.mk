@@ -33,17 +33,17 @@ TARGET_SCREEN_WIDTH := 1080
 TARGET_SCREEN_HEIGHT := 1920
 
 # Device identifier. This must come after all inclusions
+BOARD_VENDOR := Xiaomi
 PRODUCT_BRAND := Xiaomi
 PRODUCT_DEVICE := markw
 PRODUCT_MANUFACTURER := Xiaomi
 PRODUCT_NAME := nitrogen_markw
+PRODUCT_MODEL := Redmi 4 Premium
+TARGET_VENDOR := Xiaomi
 
 PRODUCT_GMS_CLIENTID_BASE := android-xiaomi
 
-TARGET_VENDOR_PRODUCT_NAME := markw
-
 PRODUCT_BUILD_PROP_OVERRIDES += \
-    PRODUCT_NAME=markw \
-    PRIVATE_BUILD_DESC="markw-user 6.0.1 MMB29M V9.2.3.0.MBEMIEK release-keys"
+    PRIVATE_BUILD_DESC="markw-user 6.0.1 MMB29M V9.2.3.0.MBEMIEK release-keys" 
 
 BUILD_FINGERPRINT := Xiaomi/markw/markw:6.0.1/MMB29M/V9.2.3.0.MBEMIEK:user/release-keys
