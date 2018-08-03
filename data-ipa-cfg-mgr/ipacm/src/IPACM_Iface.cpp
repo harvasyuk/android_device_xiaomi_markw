@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2013, The Linux Foundation. All rights reserved.
+Copyright (c) 2013-2018, The Linux Foundation. All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are
@@ -237,8 +237,6 @@ fail:
 int IPACM_Iface::handle_software_routing_disable(void)
 {
 	int res = IPACM_SUCCESS;
-	ipa_ip_type ip;
-	uint32_t flt_hdl;
 
 	if (rx_prop == NULL)
 	{
@@ -624,13 +622,6 @@ int IPACM_Iface::query_iface_property(void)
 		}
 	}
 
-	/* Add Natting iface to IPACM_Config if there is  Rx/Tx property */
-	if (rx_prop != NULL || tx_prop != NULL)
-	{
-		IPACMDBG_H(" Has rx/tx properties registered for iface %s, add for NATTING \n", dev_name);
-        IPACM_Iface::ipacmcfg->AddNatIfaces(dev_name);
-	}
-
 	close(fd);
 	return res;
 }
@@ -874,7 +865,11 @@ int IPACM_Iface::init_fl_rule(ipa_ip_type iptype)
 
 		if(rx_prop->rx[0].attrib.attrib_mask & IPA_FLT_META_DATA)
 		{
+#ifdef FEATURE_IPA_V3
+			flt_rule_entry.rule.eq_attrib.rule_eq_bitmap |= (1<<9);
+#else
 			flt_rule_entry.rule.eq_attrib.rule_eq_bitmap |= (1<<14);
+#endif
 			flt_rule_entry.rule.eq_attrib.metadata_meq32_present = 1;
 			flt_rule_entry.rule.eq_attrib.metadata_meq32.offset = 0;
 			flt_rule_entry.rule.eq_attrib.metadata_meq32.value = rx_prop->rx[0].attrib.meta_data;
@@ -885,7 +880,11 @@ int IPACM_Iface::init_fl_rule(ipa_ip_type iptype)
 		flt_rule_entry.rule.eq_attrib.protocol_eq_present = 1;
 		flt_rule_entry.rule.eq_attrib.protocol_eq = IPACM_FIREWALL_IPPROTO_TCP;
 
+#ifdef FEATURE_IPA_V3
+		flt_rule_entry.rule.eq_attrib.rule_eq_bitmap |= (1<<7);
+#else
 		flt_rule_entry.rule.eq_attrib.rule_eq_bitmap |= (1<<8);
+#endif
 		flt_rule_entry.rule.eq_attrib.num_ihl_offset_meq_32 = 1;
 		flt_rule_entry.rule.eq_attrib.ihl_offset_meq_32[0].offset = 12;
 
@@ -903,6 +902,36 @@ int IPACM_Iface::init_fl_rule(ipa_ip_type iptype)
 		flt_rule_entry.rule.eq_attrib.ihl_offset_meq_32[0].value = (((uint32_t)1)<<TCP_RST_SHIFT);
 		flt_rule_entry.rule.eq_attrib.ihl_offset_meq_32[0].mask = (((uint32_t)1)<<TCP_RST_SHIFT);
 		memcpy(&(m_pFilteringTable->rules[6]), &flt_rule_entry, sizeof(struct ipa_flt_rule_add));
+
+		/* Add the ipv6 tcp fragment filtering rule. */
+		memset(&flt_rule_entry, 0, sizeof(struct ipa_flt_rule_add));
+		flt_rule_entry.at_rear = true;
+		flt_rule_entry.flt_rule_hdl = -1;
+		flt_rule_entry.status = -1;
+		flt_rule_entry.rule.retain_hdr = 1;
+		flt_rule_entry.rule.to_uc = 0;
+		flt_rule_entry.rule.eq_attrib_type = 1;
+		flt_rule_entry.rule.action = IPA_PASS_TO_EXCEPTION;
+#ifdef FEATURE_IPA_V3
+		flt_rule_entry.rule.hashable = true;
+#endif
+		flt_rule_entry.rule.eq_attrib.rule_eq_bitmap |= (1<<1);
+		flt_rule_entry.rule.eq_attrib.protocol_eq_present = 1;
+		flt_rule_entry.rule.eq_attrib.protocol_eq = IPACM_FIREWALL_IPPROTO_TCP;
+		flt_rule_entry.rule.attrib.u.v6.next_hdr = (uint8_t)IPACM_FIREWALL_IPPROTO_TCP;
+
+		/* Configuring Fragment Filtering Rule */
+		memcpy(&flt_rule_entry.rule.attrib,
+				&rx_prop->rx[0].attrib,
+				sizeof(flt_rule_entry.rule.attrib));
+		/* remove meta data mask since we only install default flt rules once for all modem
+			PDN*/
+		flt_rule_entry.rule.attrib.attrib_mask &= ~((uint32_t)IPA_FLT_META_DATA);
+
+		flt_rule_entry.rule.attrib.attrib_mask |= IPA_FLT_FRAGMENT;
+
+		memcpy(&(m_pFilteringTable->rules[7]), &flt_rule_entry,
+			sizeof(struct ipa_flt_rule_add));
 #endif
 		if (m_filtering.AddFilteringRule(m_pFilteringTable) == false)
 		{
@@ -931,6 +960,12 @@ int IPACM_Iface::init_fl_rule(ipa_ip_type iptype)
 		}
 	}
 
+	/* Add Natting iface to IPACM_Config if there is  Rx/Tx property */
+	if (rx_prop != NULL || tx_prop != NULL)
+	{
+		IPACMDBG_H(" Has rx/tx properties registered for iface %s, add for NATTING for ip-family %d \n", dev_name, iptype);
+		IPACM_Iface::ipacmcfg->AddNatIfaces(dev_name, iptype);
+	}
 
 fail:
 	free(m_pFilteringTable);
@@ -956,7 +991,7 @@ int IPACM_Iface::ipa_get_if_index
 
 	if(strlen(if_name) >= sizeof(ifr.ifr_name))
 	{
-		IPACMERR("interface name overflows: len %d\n", strlen(if_name));
+		IPACMERR("interface name overflows: len %zu\n", strlen(if_name));
 		close(fd);
 		return IPACM_FAILURE;
 	}

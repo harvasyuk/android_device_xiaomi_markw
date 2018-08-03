@@ -1,14 +1,19 @@
-allow mm-qcamerad { untrusted_app priv_app }:fd use;
+binder_use(mm-qcamerad)
+binder_call(mm-qcamerad, servicemanager)
+typeattribute mm-qcamerad socket_between_core_and_vendor_violators;
 
-allow mm-qcamerad camera_data_file:sock_file { create unlink write };
+type_transition mm-qcamerad system_data_file:sock_file camera_socket "cam_socket1";
+type_transition mm-qcamerad system_data_file:sock_file camera_socket "cam_socket2";
+allow mm-qcamerad camera_data_file:sock_file { create unlink };
 allow mm-qcamerad camera_socket:sock_file { create unlink write };
+
+allow mm-qcamerad init:unix_stream_socket connectto;
+allow mm-qcamerad property_socket:sock_file write;
+allow mm-qcamerad sensorservice_service:service_manager find;
+allow mm-qcamerad { sysfs sysfs_graphics }:file r_file_perms;
 allow mm-qcamerad system_server:unix_stream_socket rw_socket_perms;
 
-allow mm-qcamerad sensorservice_service:service_manager find;
+typeattribute mm-qcamerad binder_in_vendor_violators;
+allow mm-qcamerad binder_device:chr_file { read write };
 
-allow mm-qcamerad sysfs:file r_file_perms;
-allow mm-qcamerad sysfs_graphics:file r_file_perms;
-
-binder_call(mm-qcamerad, servicemanager)
-binder_use(mm-qcamerad)
-set_prop(mm-qcamerad, diag_prop)
+set_prop(mm-qcamerad, camera_prop)

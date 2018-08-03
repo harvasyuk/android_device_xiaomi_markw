@@ -1,5 +1,6 @@
 /*
    Copyright (c) 2016, The CyanogenMod Project
+             (c) 2018, The LineageOS Project
    Redistribution and use in source and binary forms, with or without
    modification, are permitted provided that the following conditions are
    met:
@@ -28,6 +29,9 @@
 #include <fcntl.h>
 #include <stdlib.h>
 #include <sys/sysinfo.h>
+#include <android-base/properties.h>
+#define _REALLY_INCLUDE_SYS__SYSTEM_PROPERTIES_H_
+#include <sys/_system_properties.h>
 
 #include "vendor_init.h"
 #include "property_service.h"
@@ -39,8 +43,25 @@ char const *heapgrowthlimit;
 char const *heapsize;
 char const *heapminfree;
 char const *heapmaxfree;
-char const *large_cache_height;
+char const *texture_cache_size;
+char const *layer_cache_size;
+char const *shape_cache_size;
+char const *gradient_cache_size;
+char const *drop_shadow_cache_size;
 
+using android::base::GetProperty;
+using android::init::property_set;
+
+void property_override(char const prop[], char const value[])
+{
+    prop_info *pi;
+
+    pi = (prop_info*) __system_property_find(prop);
+    if (pi)
+        __system_property_update(pi, value, strlen(value));
+    else
+        __system_property_add(prop, strlen(prop), value, strlen(value));
+}
 
 static void init_alarm_boot_properties()
 {
@@ -67,34 +88,44 @@ static void init_alarm_boot_properties()
      * 8 -> KPDPWR_N pin toggled (power key pressed)
      */
      if (boot_reason == 3) {
-        android::init::property_set("ro.alarm_boot", "true");
+        property_set("ro.alarm_boot", "true");
      } else {
-        android::init::property_set("ro.alarm_boot", "false");
+        property_set("ro.alarm_boot", "false");
      }
 }
 
-void check_device()
+void check_ram()
 {
     struct sysinfo sys;
 
     sysinfo(&sys);
 
     if (sys.totalram > 3072ull * 1024 * 1024) {
-        // from - phone-xxhdpi-4096-dalvik-heap.mk
+        // original values in file framework/native: phone-xxhdpi-4096-dalvik-heap.mk
+        // 4GB - from vince 7.1 values
         heapstartsize = "16m";
-        heapgrowthlimit = "256m";
+        heapgrowthlimit = "192m";
         heapsize = "512m";
         heapminfree = "4m";
         heapmaxfree = "8m";
-	large_cache_height = "2048";
+        texture_cache_size="88"; //increased texture cachce size
+        layer_cache_size="58"; //increased layer cachce size
+        shape_cache_size="4";
+        gradient_cache_size="1";
+        drop_shadow_cache_size="6";
     } else if (sys.totalram > 2048ull * 1024 * 1024) {
-        // from - phone-xxhdpi-3072-dalvik-heap.mk
-        heapstartsize = "8m";
-        heapgrowthlimit = "288m";
-        heapsize = "768m";
-        heapminfree = "512k";
-	heapmaxfree = "8m";
-        large_cache_height = "1024";
+        // original values in file framework/native: phone-xxhdpi-3072-dalvik-heap.mk
+        // 3GB - from markw 6.0 values
+        heapstartsize = "16m";
+        heapgrowthlimit = "192m";
+        heapsize = "512m";
+        heapminfree = "8m";
+        heapmaxfree = "32m";
+        texture_cache_size="88"; //increased texture cachce size
+        layer_cache_size="58"; //increased layer cachce size
+        shape_cache_size="4";
+        gradient_cache_size="1";
+        drop_shadow_cache_size="6";
     } else {
         // from - phone-xxhdpi-2048-dalvik-heap.mk
         heapstartsize = "16m";
@@ -102,31 +133,43 @@ void check_device()
         heapsize = "512m";
         heapminfree = "2m";
         heapmaxfree = "8m";
-        large_cache_height = "1024";
+        texture_cache_size="72";
+        layer_cache_size="48";
+        shape_cache_size="4";
+        gradient_cache_size="1";
+        drop_shadow_cache_size="6";
    }
+}
+
+void gsi_check()
+{
+    std::string product;
+
+    product = GetProperty("ro.product.device", "");
+
+    // override device specific props for GSI
+    if (product == "phhgsi_arm64_a") {
+        property_override("ro.product.model", "Redmi 4");
+        property_override("ro.product.brand", "Xiaomi");
+        property_override("ro.product.name", "markw");
+        property_override("ro.product.device", "markw");
+        property_override("ro.product.manufacturer", "Xiaomi");
+        property_override("ro.build.product", "markw");
+        property_override("ro.build.description", "markw-user 6.0.1 MMB29M V9.2.3.0.MBEMIEK release-keys");
+        property_override("ro.build.fingerprint", "Xiaomi/markw/markw:6.0.1/MMB29M/V9.2.3.0.MBEMIEK:user/release-keys");
+    }
 }
 
 void vendor_load_properties()
 {
     init_alarm_boot_properties();
-    check_device();
+    check_ram();
+    gsi_check();
 
-    android::init::property_set("dalvik.vm.heapstartsize", heapstartsize);
-    android::init::property_set("dalvik.vm.heapgrowthlimit", heapgrowthlimit);
-    android::init::property_set("dalvik.vm.heapsize", heapsize);
-    android::init::property_set("dalvik.vm.heaptargetutilization", "0.75");
-    android::init::property_set("dalvik.vm.heapminfree", heapminfree);
-    android::init::property_set("dalvik.vm.heapmaxfree", heapmaxfree);
-
-    android::init::property_set("ro.hwui.texture_cache_size", "72");
-    android::init::property_set("ro.hwui.layer_cache_size", "48");
-    android::init::property_set("ro.hwui.r_buffer_cache_size", "8");
-    android::init::property_set("ro.hwui.path_cache_size", "32");
-    android::init::property_set("ro.hwui.gradient_cache_size", "1");
-    android::init::property_set("ro.hwui.drop_shadow_cache_size", "6");
-    android::init::property_set("ro.hwui.texture_cache_flushrate", "0.4");
-    android::init::property_set("ro.hwui.text_small_cache_width", "1024");
-    android::init::property_set("ro.hwui.text_small_cache_height", "1024");
-    android::init::property_set("ro.hwui.text_large_cache_width", "2048");
-    android::init::property_set("ro.hwui.text_large_cache_height", large_cache_height);
+    property_set("dalvik.vm.heapstartsize", heapstartsize);
+    property_set("dalvik.vm.heapgrowthlimit", heapgrowthlimit);
+    property_set("dalvik.vm.heapsize", heapsize);
+    property_set("dalvik.vm.heaptargetutilization", "0.75");
+    property_set("dalvik.vm.heapminfree", heapminfree);
+    property_set("dalvik.vm.heapmaxfree", heapmaxfree);
 }
