@@ -36,7 +36,8 @@
 #include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "gralloc.h"
+#include "hardware/gralloc.h"
+#include <utils/Timers.h>
 #include <sys/stat.h>
 
 // Camera dependencies
@@ -1447,8 +1448,8 @@ int32_t QCamera3ProcessingChannel::setReprocConfig(reprocess_config_t &reproc_cf
                     &reproc_cfg.input_stream_plane_info);
             break;
         case CAM_STREAM_TYPE_VIDEO:
-            rc = mm_stream_calc_offset_video(reproc_cfg.stream_format,
-                    &reproc_cfg.input_stream_dim,
+            rc = mm_stream_calc_offset_video(getStreamByIndex(0)->getStreamInfo(),
+                    reproc_cfg.padding,
                     &reproc_cfg.input_stream_plane_info);
             break;
         case CAM_STREAM_TYPE_RAW:

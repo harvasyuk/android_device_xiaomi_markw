@@ -71,7 +71,7 @@
 <spnOverride numeric="23415" spn="vodafone UK"/>
 <spnOverride numeric="23416" spn="TalkTalk"/>
 <spnOverride numeric="23419" spn="PMN UK"/>
-<spnOverride numeric="23420" spn="3 UK"/>
+<spnOverride numeric="23420" spn="3"/>
 <spnOverride numeric="23428" spn="Marathon"/>
 <spnOverride numeric="23430" spn="EE"/>
 <spnOverride numeric="23431" spn="EE"/>
@@ -159,7 +159,7 @@
 <spnOverride numeric="26606" spn="CTS"/>
 <spnOverride numeric="26609" spn="Shine"/>
 <spnOverride numeric="26801" spn="vodafone P"/>
-<spnOverride numeric="26803" spn="P OPTIMUS"/>
+<spnOverride numeric="26803" spn="NOS"/>
 <spnOverride numeric="26806" spn="MEO"/>
 <spnOverride numeric="27001" spn="L LUXGSM"/>
 <spnOverride numeric="27077" spn="L TANGO"/>
@@ -400,9 +400,6 @@
 <spnOverride numeric="40177" spn="Tele2"/>
 <spnOverride numeric="40211" spn="BT B-Mobile"/>
 <spnOverride numeric="40277" spn="TASHICELL"/>
-<spnOverride numeric="40417" spn="Aircel"/>
-<spnOverride numeric="40441" spn="Aircel"/>
-<spnOverride numeric="40491" spn="Aircel"/>
 <spnOverride numeric="41001" spn="Mobilink"/>
 <spnOverride numeric="41003" spn="PK-UFONE"/>
 <spnOverride numeric="41004" spn="ZONG"/>
@@ -496,7 +493,7 @@
 <spnOverride numeric="45205" spn="VN Vietnamobile"/>
 <spnOverride numeric="45207" spn="Gmobile"/>
 <spnOverride numeric="45404" spn="Hutchison"/>
-<spnOverride numeric="45406" spn="SmarTone"/>
+<spnOverride numeric="45406" spn="SmarTone HK"/>
 <spnOverride numeric="45429" spn="PCCW" />
 <spnOverride numeric="45500" spn="SmarTone MAC"/>
 <spnOverride numeric="45501" spn="CTM"/>
@@ -523,22 +520,14 @@
 <spnOverride numeric="46005" spn="China Telecom" />
 <spnOverride numeric="46006" spn="China Unicom" />
 <spnOverride numeric="46007" spn="China Mobile" />
-<!--<spnOverride numeric="46601" spn="FarEasTone" />
+<spnOverride numeric="46601" spn="FarEasTone" />
 <spnOverride numeric="46605" spn="Gt" />
 <spnOverride numeric="46606" spn="Tuntex" />
 <spnOverride numeric="46688" spn="KG Telecom" />
 <spnOverride numeric="46689" spn="VIBO" />
 <spnOverride numeric="46692" spn="Chungwa" />
 <spnOverride numeric="46693" spn="MobiTai" />
-<spnOverride numeric="46697" spn="TW Mobile" /> -->
-<spnOverride numeric="46601" spn="遠傳電信" />
-<spnOverride numeric="46605" spn="Gt" />
-<spnOverride numeric="46606" spn="Tuntex" />
-<spnOverride numeric="46688" spn="KG Telecom" />
-<spnOverride numeric="46689" spn="台灣之星" />
-<spnOverride numeric="46692" spn="中華電信" />
-<spnOverride numeric="46693" spn="MobiTai" />
-<spnOverride numeric="46697" spn="台灣大哥大" />
+<spnOverride numeric="46697" spn="TW Mobile" />
 <spnOverride numeric="46699" spn="TransAsia" />
 <spnOverride numeric="46705" spn="Koryolink"/>
 <spnOverride numeric="470001" spn="Grameenphone"/>
@@ -550,23 +539,12 @@
 <spnOverride numeric="47009" spn="BGD-BIEL"/>
 <spnOverride numeric="47201" spn="DHIRAAGU"/>
 <spnOverride numeric="47202" spn="Ooredoo Maldives PVT LTD"/>
-<!--Malaysia -->
-<spnOverride numeric="50212" spn="Maxis"/>
-<spnOverride numeric="50217" spn="Maxis"/>
-<spnOverride numeric="502142" spn="Maxis"/>
-<spnOverride numeric="502147" spn="Maxis"/>
-<spnOverride numeric="50213" spn="MY CELCOM"/>
-<spnOverride numeric="50219" spn="MY CELCOM"/>
-<spnOverride numeric="502145" spn="MY CELCOM"/>
-<spnOverride numeric="502148" spn="MY CELCOM"/>
 <spnOverride numeric="50501" spn="Telstra Mobile"/>
 <spnOverride numeric="50502" spn="YES OPTUS"/>
 <spnOverride numeric="50503" spn="vodafone AU"/>
 <spnOverride numeric="50506" spn="3TELSTRA"/>
 <spnOverride numeric="50510" spn="Norfolk Telecom"/>
 <spnOverride numeric="50516" spn="VicTrack"/>
-<spnOverride numeric="51011" spn="XL"/>
-<spnOverride numeric="51021" spn="INDOSAT"/>
 <spnOverride numeric="51401" spn="TLS-TC"/>
 <spnOverride numeric="51402" spn="TLS-TT"/>
 <spnOverride numeric="51502" spn="Globe Telecom-PH"/>
@@ -583,10 +561,6 @@
 <spnOverride numeric="52020" spn="ACeS"/>
 <spnOverride numeric="52023" spn="TH GSM 1800"/>
 <spnOverride numeric="52099" spn="TRUE"/>
-<spnOverride numeric="52501" spn="Singtel"/>
-<spnOverride numeric="52502" spn="Singtel"/>
-<spnOverride numeric="52503" spn="M1"/>
-<spnOverride numeric="52504" spn="M1"/>
 <spnOverride numeric="52802" spn="b-mobile"/>
 <spnOverride numeric="52811" spn="BRU-DSTCom"/>
 <spnOverride numeric="53001" spn="vodafone NZ"/>

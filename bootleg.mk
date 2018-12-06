@@ -15,34 +15,30 @@
 # limitations under the License.
 #
 
-
-DEVICE_PATH := device/xiaomi/markw
-
-# Inherit from those products. Most specific first.
-$(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
-$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
-
 # Inherit from markw device
-$(call inherit-product, device/xiaomi/markw/device.mk)
+$(call inherit-product, device/xiaomi/markw/full_markw.mk)
 
 # Inherit some common Bootleggers stuff.
 $(call inherit-product, vendor/bootleggers/config/common_full_phone.mk)
 
+# Boot animation
+TARGET_SCREEN_WIDTH := 1080
+TARGET_SCREEN_HEIGHT := 1920
+TARGET_ARCH := arm64
+TARGET_DENSITY := xxhdpi
+TARGET_BOOT_ANIMATION_RES := 1080
+
 # Device identifier. This must come after all inclusions
-TARGET_VENDOR := Xiaomi
-PRODUCT_DEVICE := markw
 PRODUCT_NAME := bootleg_markw
-PRODUCT_BRAND := Xiaomi
-PRODUCT_MODEL := Redmi 4 Prime
-PRODUCT_MANUFACTURER := Xiaomi
 BOARD_VENDOR := Xiaomi
+PRODUCT_DEVICE := markw
 
 PRODUCT_GMS_CLIENTID_BASE := android-xiaomi
 
 PRODUCT_BUILD_PROP_OVERRIDES += \
-    PRIVATE_BUILD_DESC="markw-user 6.0.1 MMB29M V9.2.3.0.MBEMIEK release-keys" \
-    TARGET_DEVICE="markw" \
+    PRIVATE_BUILD_DESC="markw-user 6.0.1 MMB29M V9.6.2.0.MBECNFD release-keys" \
+    PRODUCT_NAME=markw \
     DEVICE_MAINTAINERS="SonicBSV"
     
 # Set BUILD_FINGERPRINT variable to be picked up by both system and vendor build.prop
-BUILD_FINGERPRINT := Xiaomi/markw/markw:6.0.1/MMB29M/V9.2.3.0.MBEMIEK:user/release-keys
+BUILD_FINGERPRINT := Xiaomi/markw/markw:6.0.1/MMB29M/V9.6.2.0.MBECNFD:user/release-keys
