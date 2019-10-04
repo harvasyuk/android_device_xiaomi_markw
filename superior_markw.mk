@@ -36,14 +36,14 @@ PRODUCT_NAME := superior_markw
 BOARD_VENDOR := Xiaomi
 PRODUCT_MANUFACTURER := Xiaomi
 PRODUCT_DEVICE := markw
-PRODUCT_MODEL := Redmi 4
+PRODUCT_MODEL := Redmi 4 Prime
 
 PRODUCT_GMS_CLIENTID_BASE := android-xiaomi
 
 PRODUCT_BUILD_PROP_OVERRIDES += \
-    PRIVATE_BUILD_DESC="markw-user 6.0.1 MMB29M V10.2.1.0.MBEMIXM release-keys" \
+    PRIVATE_BUILD_DESC="walleye-user 8.1.0 OPM1.171019.021 4565141 release-keys" \
     TARGET_DEVICE="markw" \
     DEVICE_MAINTAINERS="SonicBSV"
     
 # Set BUILD_FINGERPRINT variable to be picked up by both system and vendor build.prop
-BUILD_FINGERPRINT := Xiaomi/markw/markw:6.0.1/MMB29M/V10.2.1.0.MBEMIXM:user/release-keys
+BUILD_FINGERPRINT := google/walleye/walleye:8.1.0/OPM1.171019.021/4565141:user/release-keys

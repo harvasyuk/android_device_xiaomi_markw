@@ -1,19 +1,3 @@
-#
-# Copyright (C) 2017-2018 The LineageOS Project
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-# http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-#
-
 DEVICE_PATH := device/xiaomi/markw
 
 TARGET_SPECIFIC_HEADER_PATH := $(DEVICE_PATH)/include
@@ -57,7 +41,8 @@ TARGET_KERNEL_SOURCE := kernel/xiaomi/markw
 TARGET_KERNEL_CROSS_COMPILE_PREFIX := aarch64-linux-android-
 
 # ANT+
-BOARD_ANT_WIRELESS_DEVICE := "vfs-prerelease"
+#TARGET_USES_PREBUILT_ANT := true
+BOARD_ANT_WIRELESS_DEVICE := "qualcomm-hidl"
 
 # Audio
 AUDIO_FEATURE_ENABLED_ANC_HEADSET := true
@@ -215,6 +200,9 @@ TARGET_HAS_NO_WLAN_STATS := true
 
 # RIL
 TARGET_RIL_VARIANT := caf
+#TARGET_USES_OLD_MNC_FORMAT := true
+TARGET_PROVIDES_QTI_TELEPHONY_JAR := true
+PROTOBUF_SUPPORTED := true
 
 # QCOM support
 BOARD_USES_QCOM_HARDWARE := true
@@ -225,9 +213,13 @@ TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/rootdir/etc/fstab.qcom
 
 # SELinux
 include device/qcom/sepolicy/sepolicy.mk
+BOARD_SEPOLICY_VERS := 28.0
 BOARD_PLAT_PRIVATE_SEPOLICY_DIR += $(DEVICE_PATH)/sepolicy/private
 BOARD_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/vendor
 SELINUX_IGNORE_NEVERALLOWS := true
+
+# Telephony
+#TARGET_USES_ALTERNATIVE_MANUAL_NETWORK_SELECT := true
 
 # Treble
 ENABLE_VENDOR_IMAGE := true
@@ -237,7 +229,7 @@ PRODUCT_FULL_TREBLE_OVERRIDE := true
 PRODUCT_SHIPPING_API_LEVEL := 23
 
 # Security patch level
-VENDOR_SECURITY_PATCH := 2019-04-05
+SYSTEM_SECURITY_PATCH := 2019-09-05
 
 # Wi-Fi
 BOARD_USES_CAF_WLAN_HAL := true
