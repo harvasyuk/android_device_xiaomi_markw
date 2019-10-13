@@ -13,9 +13,17 @@ TARGET_ARCH := arm64
 TARGET_BOOT_ANIMATION_RES := 1080
 
 # GApps
-#IS_PHONE := true
-#TARGET_GAPPS_ARCH := arm64
-#TARGET_MINIMAL_APPS := true
+$(call inherit-product-if-exists, vendor/gapps/config.mk)
+
+# PixelStyle
+$(call inherit-product-if-exists, vendor/pixelstyle/config.mk)
+
+# Include pixel ambient sense (Now playing)
+include vendor/aosip/config/ambientsense.mk
+
+# GApps targets
+TARGET_GAPPS_ARCH := arm64
+IS_PHONE := true
 
 # Device identifier. This must come after all inclusions
 PRODUCT_BRAND := Xiaomi
@@ -28,9 +36,8 @@ PRODUCT_MODEL := Redmi 4 Prime
 PRODUCT_GMS_CLIENTID_BASE := android-xiaomi
 
 PRODUCT_BUILD_PROP_OVERRIDES += \
-    PRIVATE_BUILD_DESC="walleye-user 9 PQ3A.190505.001 5373320 release-keys" \
-    TARGET_DEVICE="markw" \
+    PRIVATE_BUILD_DESC="walleye-user 8.1.0 OPM1.171019.021 4565141 release-keys" \
     DEVICE_MAINTAINERS="SonicBSV"
-    
+
 # Set BUILD_FINGERPRINT variable to be picked up by both system and vendor build.prop
-BUILD_FINGERPRINT := google/walleye/walleye:9/PQ3A.190505.001/5373320:user/release-keys
+BUILD_FINGERPRINT := google/walleye/walleye:8.1.0/OPM1.171019.021/4565141:user/release-keys

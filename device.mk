@@ -2,7 +2,8 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/product_launched_with_m.mk)
 
 # Overlay
 DEVICE_PACKAGE_OVERLAYS += \
-    $(LOCAL_PATH)/overlay 
+    $(LOCAL_PATH)/overlay \
+    $(LOCAL_PATH)/overlay-aosip
 
 #PRODUCT_ENFORCE_RRO_TARGETS := \
     framework-res
@@ -232,7 +233,6 @@ PRODUCT_PACKAGES += \
 
 # Display
 PRODUCT_PACKAGES += \
-    copybit.msm8953 \
     gralloc.msm8953 \
     hwcomposer.msm8953 \
     memtrack.msm8953 \
@@ -319,11 +319,9 @@ PRODUCT_PACKAGES += \
 
 # HIDL
 PRODUCT_PACKAGES += \
-    android.hidl.base@1.0_vendor \
+    android.hidl.base@1.0 \
     android.hidl.base@1.0_system \
-    android.hidl.base@1.0-java \
-    android.hidl.manager@1.0_system:32 \
-    android.hidl.manager@1.0-java
+    android.hidl.manager@1.0
 
 # Ramdisk
 PRODUCT_PACKAGES += \
@@ -440,6 +438,11 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/powerhint.xml:system/etc/powerhint.xml \
 
+# PixelAmbientServices
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/PixelAmbientServices/music_detector.descriptor:system/etc/firmware/music_detector.descriptor \
+    $(LOCAL_PATH)/PixelAmbientServices/music_detector.sound_model:system/etc/firmware/music_detector.sound_model 
+
 # RenderScript HAL
 PRODUCT_PACKAGES += \
     android.hardware.renderscript@1.0-impl
@@ -546,9 +549,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_BOOT_JARS += \
     WfdCommon
 
-# XiaomiParts
+# Xiaomi
 PRODUCT_PACKAGES += \
-    XiaomiParts
+    XiaomiParts \
+    XiaomiDoze
 
 # Inherit proprietary files
 $(call inherit-product-if-exists, vendor/xiaomi/markw/markw-vendor.mk)
