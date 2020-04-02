@@ -1,0 +1,5 @@
+allow vdc self:capability sys_admin;
+
+dontaudit vdc mm-qcamerad_exec:file { read getattr };
+dontaudit vdc vendor_file:file { read getattr };
+dontaudit vdc gx_fpd_exec:file { read getattr };

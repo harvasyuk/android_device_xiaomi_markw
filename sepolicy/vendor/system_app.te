@@ -1,0 +1,22 @@
+allow system_app sysfs_vibrator:file rw_file_perms;
+allow system_app sysfs_vibrator:dir search;
+allow system_app sysfs_torch:file rw_file_perms;
+allow system_app sysfs_torch:dir search;
+allow system_app sysfs_leds:dir search;
+allow system_app sysfs_leds:lnk_file rw_file_perms;
+allow system_app sysfs_zram:dir { read search };
+allow system_app sysfs_zram:file { open read getattr };
+allow system_app proc_pagetypeinfo:file { open read getattr };
+allow system_app bg_boot_complete_prop:file { read } ;
+allow system_app bg_daemon_prop:file { read } ;
+allow system_app boottime_prop:file { read } ;
+allow system_app cnd_vendor_prop:file { read } ;
+allow system_app wificond:binder call;
+
+allow system_app sysfs_kgsl:lnk_file { read } ;
+
+# FM radio needs to set fm properties
+set_prop(system_app, fm_prop)
+
+# zram
+r_dir_file(system_app sysfs_zram)

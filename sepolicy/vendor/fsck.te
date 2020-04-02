@@ -1,0 +1,5 @@
+dontaudit fsck mm-qcamerad_exec:file { read getattr };
+dontaudit fsck vendor_file:file { read getattr };
+dontaudit fsck gx_fpd_exec:file { read getattr };
+
+allow fsck tmpfs:blk_file { getattr };

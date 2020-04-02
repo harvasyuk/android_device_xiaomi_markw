@@ -1,0 +1,21 @@
+allow init proc:lnk_file setattr;
+allow init adsprpcd_file:filesystem { relabelto relabelfrom associate mount };
+allow init sysfs:file setattr;
+allow init sysfs_leds:file rw_file_perms;
+allow init sysfs_leds:file setattr;
+allow init sysfs_leds:lnk_file rw_file_perms;
+allow init sysfs_battery_supply:file setattr;
+
+allow init wcnss_device:chr_file write;
+allow qti_init_shell {
+    fm_prop
+}:property_service set;
+
+# Allow init to bind mount loader config for media swcodec
+allow init system_file:file mounton;
+
+# adsprpcd
+allow init adsprpcd_file:filesystem { mount relabelfrom relabelto };
+
+allow init sysfs:file setattr;
+allow init sysfs_batteryinfo:file setattr;
