@@ -212,6 +212,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.vendor.btstack.enable.splita2dp=false \
     persist.vendor.qcom.bluetooth.enable.splita2dp=false \
     persist.vendor.btstack.enable.splita2dp=false \
+    persist.vendor.bluetooth.modem_nv_support=true \
     ro.vendor.bluetooth.wipower=false
 
 # Camera
@@ -498,7 +499,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     media.aac_51_output_enabled=true \
     av.debug.disable.pers.cache=1 \
     ro.config.media_vol_default=10 \
-    vendor.mm.enable.qcom_parser=37748475 \
+    vendor.mm.enable.qcom_parser=37748735 \
     debug.stagefright.omx_default_rank.sw-audio=1 \
     debug.stagefright.omx_default_rank=0 \
     vendor.vidc.enc.disable_bframes=1 \
