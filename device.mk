@@ -804,9 +804,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Xiaomi
 PRODUCT_PACKAGES += \
-    XiaomiParts \
     XiaomiParts2 \
     XiaomiDoze
+
+#    XiaomiParts \
 
 # ZRam
 PRODUCT_PROPERTY_OVERRIDES += \
