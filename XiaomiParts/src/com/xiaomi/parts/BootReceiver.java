@@ -1,6 +1,5 @@
 package com.xiaomi.parts;
 
-import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -8,17 +7,9 @@ import android.content.SharedPreferences;
 import androidx.preference.PreferenceManager;
 import android.provider.Settings;
 
-import java.lang.Math.*;
-
-import java.io.IOException;
-import java.util.List;
-
 import com.xiaomi.parts.kcal.Utils;
 
 public class BootReceiver extends BroadcastReceiver implements Utils {
-
-    public static final  String HEADPHONE_GAIN_PATH = "/sys/kernel/sound_control/headphone_gain";
-    public static final  String MICROPHONE_GAIN_PATH = "/sys/kernel/sound_control/mic_gain";
 
     public void onReceive(Context context, Intent intent) {
 
@@ -49,11 +40,5 @@ public class BootReceiver extends BroadcastReceiver implements Utils {
             FileUtils.setValue(KCAL_HUE, Settings.Secure.getInt(context.getContentResolver(),
                     PREF_HUE, HUE_DEFAULT));
         }
-
-        int gain = Settings.Secure.getInt(context.getContentResolver(),
-                DeviceSettings.PREF_HEADPHONE_GAIN, 5);
-        FileUtils.setValue(HEADPHONE_GAIN_PATH, gain + " " + gain);
-        FileUtils.setValue(MICROPHONE_GAIN_PATH, Settings.Secure.getInt(context.getContentResolver(),
-                DeviceSettings.PREF_MICROPHONE_GAIN, 0));
     }
 }

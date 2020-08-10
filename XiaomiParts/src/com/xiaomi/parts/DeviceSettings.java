@@ -19,8 +19,6 @@ import com.xiaomi.parts.preferences.CustomSeekBarPreference;
 
 import com.xiaomi.parts.R;
 
-import java.lang.Math.*;
-
 public class DeviceSettings extends PreferenceFragment implements
         Preference.OnPreferenceChangeListener {
 
