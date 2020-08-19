@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        android:key="audio"
+        android:title="@string/audio_title">
+
+        <com.xiaomi.parts.preferences.CustomSeekBarPreference
+            android:defaultValue="2"
+            android:key="headphone_gain"
+            android:max="20"
+            app:min="-40"
+            android:icon="@drawable/ic_headphone"
+            android:title="@string/headphone_gain"/>
+
+        <com.xiaomi.parts.preferences.CustomSeekBarPreference
+            android:defaultValue="0"
+            android:key="microphone_gain"
+            android:max="20"
+            app:min="-10"
+            android:icon="@drawable/ic_mic"
+            android:title="@string/microphone_gain"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="display"
+        android:title="@string/display_title">
+
+        <Preference
+            android:key="device_kcal"
+            android:persistent="false"
+            android:icon="@drawable/ic_kcal"
+            android:title="@string/device_kcal_title"
+            android:summary="@string/device_kcal_summary" >
+            <intent
+                android:action="android.intent.action.MAIN"
+                android:targetClass="com.xiaomi.parts.kcal.KCalSettingsActivity"
+                android:targetPackage="com.xiaomi.parts.kcal"/>
+        </Preference>
+
+    </PreferenceCategory>
+</PreferenceScreen>
