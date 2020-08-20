@@ -18,4 +18,5 @@ soong_namespace {
 subdirs = [
     "light",
     "consumerir",
+    "power",
 ]

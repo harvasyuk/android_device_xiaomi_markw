@@ -12,7 +12,7 @@ import androidx.preference.PreferenceFragment;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreference;
 
-import com.xiaomi.parts.ambient.AmbientGesturePreferenceActivity;
+import com.xiaomi.parts.kcal.KCalSettingsActivity;
 import com.xiaomi.parts.preferences.SecureSettingListPreference;
 import com.xiaomi.parts.preferences.SecureSettingSwitchPreference;
 import com.xiaomi.parts.preferences.CustomSeekBarPreference;
@@ -23,10 +23,7 @@ public class DeviceSettings extends PreferenceFragment implements
         Preference.OnPreferenceChangeListener {
 
     private static final String CATEGORY_DISPLAY = "display";
-
-    private static final String AMBIENT_DISPLAY = "ambient_display_gestures";
-
-    public static final String PREF_KEY_FPS_INFO = "fps_info";
+    private static final String PREF_DEVICE_KCAL = "device_kcal";
 
     public static final  String PREF_HEADPHONE_GAIN = "headphone_gain";
     public static final  String PREF_MICROPHONE_GAIN = "microphone_gain";
@@ -46,13 +43,9 @@ public class DeviceSettings extends PreferenceFragment implements
 
         PreferenceCategory displayCategory = (PreferenceCategory) findPreference(CATEGORY_DISPLAY);
 
-        SwitchPreference fpsInfo = (SwitchPreference) findPreference(PREF_KEY_FPS_INFO);
-        fpsInfo.setChecked(prefs.getBoolean(PREF_KEY_FPS_INFO, false));
-        fpsInfo.setOnPreferenceChangeListener(this);
-
-        Preference ambientDisplay = findPreference(AMBIENT_DISPLAY);
-        ambientDisplay.setOnPreferenceClickListener(preference -> {
-            Intent intent = new Intent(getContext(), AmbientGesturePreferenceActivity.class);
+        Preference kcal = findPreference(PREF_DEVICE_KCAL);
+        kcal.setOnPreferenceClickListener(preference -> {
+            Intent intent = new Intent(getActivity().getApplicationContext(), KCalSettingsActivity.class);
             startActivity(intent);
             return true;
         });
@@ -68,16 +61,6 @@ public class DeviceSettings extends PreferenceFragment implements
 
             case PREF_MICROPHONE_GAIN:
                 FileUtils.setValue(MICROPHONE_GAIN_PATH, (int) value);
-                break;
-
-            case PREF_KEY_FPS_INFO:
-                boolean enabled = (Boolean) value;
-                Intent fpsinfo = new Intent(this.getContext(), FPSInfoService.class);
-                if (enabled) {
-                    this.getContext().startService(fpsinfo);
-                } else {
-                    this.getContext().stopService(fpsinfo);
-                }
                 break;
 
             default:
