@@ -53,7 +53,7 @@ TARGET_KERNEL_CROSS_COMPILE_PREFIX := $(shell pwd)/prebuilts/gcc/linux-x86/aarch
 BOARD_ANT_WIRELESS_DEVICE := "qualcomm-hidl"
 
 # APEX image
-# DEXPREOPT_GENERATE_APEX_IMAGE := true
+#DEXPREOPT_GENERATE_APEX_IMAGE := true
 
 # Audio
 AUDIO_FEATURE_ENABLED_ANC_HEADSET := true

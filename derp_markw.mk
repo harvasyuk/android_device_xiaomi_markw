@@ -7,7 +7,7 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/product_launched_with_m.mk)
 TARGET_BOOT_ANIMATION_RES := 1080
 #TARGET_GAPPS_ARCH := arm64
 #TARGET_MINIMAL_APPS := true
-#IS_PHONE := true
+IS_PHONE := true
 $(call inherit-product, vendor/aosip/config/common_full_phone.mk)
 $(call inherit-product, $(LOCAL_PATH)/device.mk)
 DERP_BUILD_ZIP_TYPE := VANILLA
