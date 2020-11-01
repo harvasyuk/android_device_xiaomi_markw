@@ -219,7 +219,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PACKAGES += \
     camera.msm8953 \
     libmm-qcamera \
-    Snap
+    GoogleCamera
 
 PRODUCT_PACKAGES += \
     android.frameworks.cameraservice.common@2.0 \
