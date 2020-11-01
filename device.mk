@@ -809,12 +809,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.debug.wfd.enable=1 \
     persist.hwc.enable_vds=1
 
-# Xiaomi
-PRODUCT_PACKAGES += \
-    XiaomiParts \
-    XiaomiParts2 \
-    XiaomiDoze
-
 # ZRam
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.vendor.qti.config.zram=true
