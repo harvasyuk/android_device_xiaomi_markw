@@ -78,8 +78,8 @@ PRODUCT_COPY_FILES += \
 # ADB Debug
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
     persist.logd.logpersistd=logcatd \
-    persist.service.adb.enable=1 \
-    persist.sys.usb.config=mtp,adb \
+    persist.service.adb.enable=0 \
+    persist.sys.usb.config=mtp \
     ro.adb.secure=0 \
     ro.secure=0 \
     ro.debuggable=1 
